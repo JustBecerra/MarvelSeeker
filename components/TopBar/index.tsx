@@ -57,9 +57,8 @@ export const TopBar = () => {
               <Input
                 placeholder="Buscar"
                 sx={{
-                  "& .MuiInputBase-input": {
-                    outline: "none !important",
-                    border: "none",
+                  "&.MuiInput-root::before": {
+                    borderBottom: "none !important",
                   },
                 }}
                 startAdornment={
@@ -76,9 +75,12 @@ export const TopBar = () => {
             <Box sx={{ display: "flex", marginRight: "5%" }}>
               <IconButton
                 onClick={() => setShowFavorites((prev) => !prev)}
+                disableRipple
+                disableFocusRipple
+                disableTouchRipple
                 sx={{ marginRight: "1rem" }}
               >
-                {showFavorites ? (
+                {!showFavorites ? (
                   <StarOutlineIcon
                     sx={{
                       display: "flex",
