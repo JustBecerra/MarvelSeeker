@@ -1,7 +1,7 @@
 import { AppBar, Box, IconButton, InputBase, Toolbar } from "@mui/material";
 import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 export const TopBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
