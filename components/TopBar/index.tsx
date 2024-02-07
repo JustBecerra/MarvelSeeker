@@ -3,15 +3,22 @@ import {
   AppBar,
   Box,
   IconButton,
-  InputBase,
+  Input,
+  InputAdornment,
   Toolbar,
   useTheme,
 } from "@mui/material";
-import React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
+import marvelIcon from "../../public/marvel.svg";
 import SearchIcon from "@mui/icons-material/Search";
+import StarIcon from "@mui/icons-material/Star";
+import Image from "next/image";
+import Divider from "@mui/material/Divider";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import { useState } from "react";
 export const TopBar = () => {
+  const [showFavorites, setShowFavorites] = useState(false);
   const theme = useTheme();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -19,30 +26,92 @@ export const TopBar = () => {
         sx={{ backgroundColor: theme.palette.primary.main }}
       >
         <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
           <Box
             sx={{
               display: "flex",
-              position: "relative",
-              marginLeft: 0,
-              marginRight: "2rem",
-              flexDirection: "row",
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
-              gap: "1rem",
+              width: "100%",
             }}
           >
-            <Box>
-              <SearchIcon />
+            <Box
+              sx={{
+                display: "flex",
+                gap: "1rem",
+                p: "0.5rem",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image src={marvelIcon} alt={""} width={72} height={36} />
+              <Divider
+                orientation="vertical"
+                variant="middle"
+                flexItem
+                sx={{
+                  borderRightWidth: 2.5,
+                  height: "2.5rem",
+                }}
+              />
+
+              <Input
+                placeholder="Buscar"
+                sx={{
+                  "& .MuiInputBase-input": {
+                    outline: "none !important",
+                    border: "none",
+                  },
+                }}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon
+                      sx={{
+                        fill: theme.palette.primary.dark,
+                      }}
+                    />
+                  </InputAdornment>
+                }
+              />
             </Box>
-            <InputBase
-              placeholder="Buscar"
-              inputProps={{ "aria-label": "search" }}
-            />
+            <Box sx={{ display: "flex", marginRight: "5%" }}>
+              <IconButton
+                onClick={() => setShowFavorites((prev) => !prev)}
+                sx={{ marginRight: "1rem" }}
+              >
+                {showFavorites ? (
+                  <StarOutlineIcon
+                    sx={{
+                      display: "flex",
+                      justifySelf: "flex-end",
+                      width: "2.5rem",
+                      height: "2.5rem",
+                      fill: theme.palette.primary.dark,
+                    }}
+                  />
+                ) : (
+                  <StarIcon
+                    sx={{
+                      display: "flex",
+                      justifySelf: "flex-end",
+                      width: "2.5rem",
+                      height: "2.5rem",
+                      fill: theme.palette.primary.dark,
+                    }}
+                  />
+                )}
+              </IconButton>
+
+              <Divider
+                orientation="vertical"
+                variant="middle"
+                flexItem
+                sx={{
+                  borderRightWidth: 2.5,
+                  height: "2.5rem",
+                }}
+              />
+            </Box>
           </Box>
-          <Box sx={{ flexGrow: 1 }} />
         </Toolbar>
       </AppBar>
     </Box>
