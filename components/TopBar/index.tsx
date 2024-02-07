@@ -1,11 +1,23 @@
-import { AppBar, Box, IconButton, InputBase, Toolbar } from "@mui/material";
+"use client";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  InputBase,
+  Toolbar,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 export const TopBar = () => {
+  const theme = useTheme();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#F7F8FA" }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: theme.palette.primary.main }}
+      >
         <Toolbar>
           <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }}>
             <MenuIcon />
@@ -17,6 +29,9 @@ export const TopBar = () => {
               marginLeft: 0,
               marginRight: "2rem",
               flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "1rem",
             }}
           >
             <Box>
