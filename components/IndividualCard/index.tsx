@@ -7,14 +7,22 @@ import {
   useTheme,
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-export const IndividualCard = () => {
+export const IndividualCard = ({
+  name,
+  thumbnail,
+  extension,
+}: {
+  name: string;
+  thumbnail: string;
+  extension: string;
+}) => {
   const theme = useTheme();
   return (
     <Card
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: 256,
+        width: "20%",
         height: 380,
       }}
     >
@@ -31,11 +39,11 @@ export const IndividualCard = () => {
         <CardMedia
           component="img"
           height="100%"
-          image="https://example.com/your-image-url.jpg" // Replace with your image URL
+          image={`${thumbnail}.${extension}`}
           alt="Card Image"
           style={{ objectFit: "cover" }}
         />
-        <Typography>Name</Typography>
+        <Typography>{name}</Typography>
       </CardActionArea>
     </Card>
   );
