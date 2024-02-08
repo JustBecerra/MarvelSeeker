@@ -1,73 +1,31 @@
 import { CharacterType } from "@/types/CharacterTypes";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import dotenv from "dotenv";
-import CryptoJS from "crypto-js";
+import md5 from "md5";
 type initialStateType = {
-  character: CharacterType;
+  characters: CharacterType[];
   status: string;
   error: string;
 };
 
 const initialState: initialStateType = {
-  character: {
-    id: 0,
-    name: "",
-    description: "",
-    modified: Date,
-    resourceURI: "",
-    urls: [],
-    thumbnail: {
-      type: "",
-      url: "",
-    },
-    stories: {
-      available: 0,
-      returned: 0,
-      collectionURI: "",
-      items: [],
-    },
-    comics: {
-      available: 0,
-      returned: 0,
-      collectionURI: "",
-      items: [],
-    },
-    events: { available: 0, returned: 0, collectionURI: "", items: [] },
-    series: {
-      available: 0,
-      returned: 0,
-      collectionURI: "",
-      items: [],
-    },
-  },
+  characters: [],
   status: "",
   error: "",
-} as unknown as initialStateType;
+} as initialStateType;
 
 const ts = Date.now().toString();
+const privateKey = process.env.NEXT_PUBLIC_MARVEL_PRIVATE_KEY;
+const publicKey = process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY;
+const hash = md5(ts + privateKey + publicKey);
 
-const fetchCharacters = createAsyncThunk("character", async () => {
+const fetchCharacters = createAsyncThunk("characters", async () => {
   try {
+    const apiBaseURL = "http://gateway.marvel.com/v1/public";
     const response = await axios.get(
-      "http://gateway.marvel.com/v1/public/comics",
-      {
-        params: {
-          apikey: process.env.public_key,
-          ts: ts,
-          hash: CryptoJS.MD5(
-            ts +
-              process.env.MARVEL_PRIVATE_KEY +
-              process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY
-          ).toString(),
-        },
-        headers: {
-          Accept: "application/json",
-        },
-      }
+      `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`
     );
-
-    return response.data;
+    return response.data.data.results;
   } catch (error) {
     console.error("Error fetching characters:", error);
     throw error;
@@ -75,11 +33,11 @@ const fetchCharacters = createAsyncThunk("character", async () => {
 });
 
 export const characters = createSlice({
-  name: "character",
+  name: "characters",
   initialState,
   reducers: {
-    getCharacters: (state, action: PayloadAction<CharacterType>) => {
-      state.character = action.payload;
+    getCharacters: (state, action: PayloadAction<CharacterType[]>) => {
+      state.characters = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -89,7 +47,7 @@ export const characters = createSlice({
       })
       .addCase(fetchCharacters.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.character = action.payload;
+        state.characters = action.payload;
       })
       .addCase(fetchCharacters.rejected, (state, action) => {
         state.status = "failed";

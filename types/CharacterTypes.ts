@@ -1,4 +1,4 @@
-import { ListType } from "./ListTypes";
+import { ComicList, EventList, SeriesList, StoryList } from "./ListTypes";
 
 type Image = {
   path: string;
@@ -18,8 +18,25 @@ export type CharacterType = {
   resourceURI: string;
   urls: Url[];
   thumbnail: Image;
-  stories: ListType;
-  comics: ListType;
-  events: ListType;
-  series: ListType;
+  stories: StoryList;
+  comics: ComicList;
+  events: EventList;
+  series: SeriesList;
+};
+
+export type CharacterDataContainer = {
+  offset?: number;
+  limit?: number;
+  total?: number;
+  count?: number;
+  results?: CharacterType[];
+};
+
+export type CharacterDataWrapper = {
+  code?: number;
+  status?: string;
+  attributionText?: string;
+  attributionHTML?: string;
+  data?: CharacterDataContainer;
+  etag?: string;
 };
