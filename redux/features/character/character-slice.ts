@@ -5,6 +5,7 @@ import md5 from "md5";
 type initialStateType = {
   characters: CharacterType[];
   filteredCharacters: CharacterType[];
+  favoriteCharacters: CharacterType[];
   searchBar: string;
   status: string;
   error: string;
@@ -13,6 +14,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   characters: [],
   filteredCharacters: [],
+  favoriteCharacters: [],
   searchBar: "",
   status: "",
   error: "",
@@ -42,13 +44,28 @@ export const characters = createSlice({
   reducers: {
     filterCharacters: (state, action: PayloadAction<string>) => {
       const searchTerm = action.payload.toLowerCase();
-
       if (searchTerm !== "") {
         state.filteredCharacters = state.characters.filter((char) =>
           char.name.toLowerCase().includes(searchTerm)
         );
       } else {
         state.filteredCharacters = state.characters;
+      }
+    },
+    favoriteCharacters: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const favoriteChar = state.characters.find((char) => char.id === id);
+      if (favoriteChar) {
+        // Check if the character is not already in the favoriteCharacters array
+        if (
+          !state.favoriteCharacters.some((char) => char.id === favoriteChar.id)
+        ) {
+          // Use the spread operator to create a new array without mutating the state
+          state.favoriteCharacters = [
+            ...state.favoriteCharacters,
+            favoriteChar,
+          ];
+        }
       }
     },
   },
