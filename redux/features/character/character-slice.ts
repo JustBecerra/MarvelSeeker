@@ -4,12 +4,16 @@ import axios from "axios";
 import md5 from "md5";
 type initialStateType = {
   characters: CharacterType[];
+  filteredCharacters: CharacterType[];
+  searchBar: string;
   status: string;
   error: string;
 };
 
 const initialState: initialStateType = {
   characters: [],
+  filteredCharacters: [],
+  searchBar: "",
   status: "",
   error: "",
 } as initialStateType;
@@ -36,8 +40,16 @@ export const characters = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    getCharacters: (state, action: PayloadAction<CharacterType[]>) => {
-      state.characters = action.payload;
+    filterCharacters: (state, action: PayloadAction<string>) => {
+      const searchTerm = action.payload.toLowerCase();
+
+      if (searchTerm !== "") {
+        state.filteredCharacters = state.characters.filter((char) =>
+          char.name.toLowerCase().includes(searchTerm)
+        );
+      } else {
+        state.filteredCharacters = state.characters;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -48,6 +60,7 @@ export const characters = createSlice({
       .addCase(fetchCharacters.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.characters = action.payload;
+        state.filteredCharacters = action.payload;
       })
       .addCase(fetchCharacters.rejected, (state, action) => {
         state.status = "failed";
@@ -57,5 +70,5 @@ export const characters = createSlice({
 });
 
 export { fetchCharacters };
-export const { getCharacters } = characters.actions;
+export const { filterCharacters } = characters.actions;
 export default characters.reducer;
