@@ -8,7 +8,11 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const characters = useAppSelector((state) => state.characters.characters);
+
+  const filteredCharacters = useAppSelector(
+    (state) => state.charactersReducer.filteredCharacters
+  );
+
   useEffect(() => {
     dispatch(fetchCharacters());
   }, [dispatch]);
@@ -25,7 +29,7 @@ export const CardContainer = () => {
         justifyContent: "space-evenly",
       }}
     >
-      {characters.map(({ name, thumbnail }, key) => (
+      {filteredCharacters.map(({ name, thumbnail }, key) => (
         <IndividualCard
           key={key}
           name={name}

@@ -14,10 +14,20 @@ import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import Divider from "@mui/material/Divider";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterCharacters } from "@/redux/features/character/character-slice";
 export const TopBar = () => {
+  const dispatch = useDispatch();
   const [showFavorites, setShowFavorites] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const theme = useTheme();
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setSearchTerm(e.target.value);
+    dispatch(filterCharacters(e.target.value));
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -56,6 +66,8 @@ export const TopBar = () => {
 
               <Input
                 placeholder="Buscar"
+                onChange={(e) => handleChange(e)}
+                value={searchTerm}
                 sx={{
                   "&.MuiInput-root::before": {
                     borderBottom: "none !important",
