@@ -16,6 +16,10 @@ export const CardContainer = () => {
     (state) => state.charactersReducer.filteredCharacters
   );
 
+  const showFavorites = useAppSelector(
+    (state) => state.charactersReducer.showFavorites
+  );
+
   const favoriteCharacters = useAppSelector(
     (state) => state.charactersReducer.favoriteCharacters
   );
@@ -48,16 +52,27 @@ export const CardContainer = () => {
         justifyContent: "space-evenly",
       }}
     >
-      {filteredCharacters.map(({ name, thumbnail, id }, key) => (
-        <IndividualCard
-          key={key}
-          name={name}
-          thumbnail={thumbnail.path}
-          id={id}
-          extension={thumbnail.extension}
-          handleAddFavorite={handleAddFavorite}
-        />
-      ))}
+      {showFavorites === true
+        ? favoriteCharacters.map(({ name, thumbnail, id }, key) => (
+            <IndividualCard
+              key={key}
+              name={name}
+              thumbnail={thumbnail.path}
+              id={id}
+              extension={thumbnail.extension}
+              handleAddFavorite={handleAddFavorite}
+            />
+          ))
+        : filteredCharacters.map(({ name, thumbnail, id }, key) => (
+            <IndividualCard
+              key={key}
+              name={name}
+              thumbnail={thumbnail.path}
+              id={id}
+              extension={thumbnail.extension}
+              handleAddFavorite={handleAddFavorite}
+            />
+          ))}
     </Box>
   );
 };
