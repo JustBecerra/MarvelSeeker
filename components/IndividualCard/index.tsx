@@ -8,28 +8,29 @@ import {
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
-import { useAppSelector } from "@/redux/store";
-import { ComicList } from "@/types/ListTypes";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { ComicModal } from "../ComicModal";
 import { useState } from "react";
+import { fetchComicById } from "@/redux/features/comic/comic-slice";
+import { useDispatch } from "react-redux";
 export const IndividualCard = ({
   name,
   thumbnail,
   id,
-  comics,
   extension,
   handleAddFavorite,
 }: {
   name: string;
   id: number;
-  comics: ComicList;
   thumbnail: string;
   extension: string;
   handleAddFavorite: (id: number) => void;
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
+    dispatch(fetchComicById(id));
     setOpen(true);
   };
 
@@ -40,6 +41,8 @@ export const IndividualCard = ({
   const favoriteCharacters = useAppSelector(
     (state) => state.charactersReducer.favoriteCharacters
   );
+
+  const comicsById = useAppSelector((state) => state.comicsReducer.comicsById);
 
   const handleStar = () => {
     const isAlreadyFavorite = favoriteCharacters.some((char) => char.id === id);
@@ -62,7 +65,12 @@ export const IndividualCard = ({
         opacity: 1,
       }}
     >
-      <ComicModal open={open} onClose={handleClose} name={name} />
+      <ComicModal
+        open={open}
+        onClose={handleClose}
+        name={name}
+        comics={comicsById}
+      />
       <IconButton
         onClick={handleAddFavorites}
         disableRipple

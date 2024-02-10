@@ -8,6 +8,7 @@ import {
   fetchCharacters,
 } from "@/redux/features/character/character-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
+import { fetchComics } from "@/redux/features/comic/comic-slice";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +29,18 @@ export const CardContainer = () => {
     const fetchData = async () => {
       try {
         await dispatch(fetchCharacters());
+      } catch (error) {
+        console.error("Error fetching characters:", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchComics());
       } catch (error) {
         console.error("Error fetching characters:", error);
       }
@@ -59,7 +72,6 @@ export const CardContainer = () => {
               name={name}
               thumbnail={thumbnail.path}
               id={id}
-              comics={comics}
               extension={thumbnail.extension}
               handleAddFavorite={handleAddFavorite}
             />
@@ -70,7 +82,6 @@ export const CardContainer = () => {
               name={name}
               thumbnail={thumbnail.path}
               id={id}
-              comics={comics}
               extension={thumbnail.extension}
               handleAddFavorite={handleAddFavorite}
             />
