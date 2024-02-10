@@ -3,7 +3,10 @@ import { Box } from "@mui/material";
 import { IndividualCard } from "../IndividualCard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchCharacters } from "@/redux/features/character/character-slice";
+import {
+  addFavoriteCharacters,
+  fetchCharacters,
+} from "@/redux/features/character/character-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 
 export const CardContainer = () => {
@@ -13,9 +16,25 @@ export const CardContainer = () => {
     (state) => state.charactersReducer.filteredCharacters
   );
 
+  const favoriteCharacters = useAppSelector(
+    (state) => state.charactersReducer.favoriteCharacters
+  );
+
   useEffect(() => {
-    dispatch(fetchCharacters());
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchCharacters());
+      } catch (error) {
+        console.error("Error fetching characters:", error);
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
+
+  const handleAddFavorite = (id: number) => {
+    dispatch(addFavoriteCharacters(id));
+  };
   return (
     <Box
       sx={{
@@ -29,12 +48,14 @@ export const CardContainer = () => {
         justifyContent: "space-evenly",
       }}
     >
-      {filteredCharacters.map(({ name, thumbnail }, key) => (
+      {filteredCharacters.map(({ name, thumbnail, id }, key) => (
         <IndividualCard
           key={key}
           name={name}
           thumbnail={thumbnail.path}
+          id={id}
           extension={thumbnail.extension}
+          handleAddFavorite={handleAddFavorite}
         />
       ))}
     </Box>

@@ -52,19 +52,16 @@ export const characters = createSlice({
         state.filteredCharacters = state.characters;
       }
     },
-    favoriteCharacters: (state, action: PayloadAction<number>) => {
+    addFavoriteCharacters: (state, action: PayloadAction<number>) => {
       const id = action.payload;
-      const favoriteChar = state.characters.find((char) => char.id === id);
-      if (favoriteChar) {
-        // Check if the character is not already in the favoriteCharacters array
+      if (state.status === "succeeded") {
+        const favoriteChar = state.characters.find((char) => char.id === id);
         if (
+          favoriteChar &&
           !state.favoriteCharacters.some((char) => char.id === favoriteChar.id)
         ) {
-          // Use the spread operator to create a new array without mutating the state
-          state.favoriteCharacters = [
-            ...state.favoriteCharacters,
-            favoriteChar,
-          ];
+          state.favoriteCharacters.push(favoriteChar);
+          console.log(state.favoriteCharacters);
         }
       }
     },
@@ -87,5 +84,5 @@ export const characters = createSlice({
 });
 
 export { fetchCharacters };
-export const { filterCharacters } = characters.actions;
+export const { filterCharacters, addFavoriteCharacters } = characters.actions;
 export default characters.reducer;

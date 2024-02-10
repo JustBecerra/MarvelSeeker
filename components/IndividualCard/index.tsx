@@ -12,13 +12,22 @@ import { useState } from "react";
 export const IndividualCard = ({
   name,
   thumbnail,
+  id,
   extension,
+  handleAddFavorite,
 }: {
   name: string;
+  id: number;
   thumbnail: string;
   extension: string;
+  handleAddFavorite: (id: number) => void;
 }) => {
   const [addFavorites, setAddFavorites] = useState(false);
+
+  const handleAddFavorites = () => {
+    setAddFavorites((prev) => !prev);
+    handleAddFavorite(id);
+  };
   const theme = useTheme();
   return (
     <Card
@@ -32,7 +41,7 @@ export const IndividualCard = ({
       }}
     >
       <IconButton
-        onClick={() => setAddFavorites((prev) => !prev)}
+        onClick={handleAddFavorites}
         disableRipple
         disableFocusRipple
         disableTouchRipple
