@@ -20,10 +20,14 @@ import {
   activateFavorites,
   filterCharacters,
 } from "@/redux/features/character/character-slice";
+import { useAppSelector } from "@/redux/store";
 export const TopBar = () => {
   const dispatch = useDispatch();
-  const [showFavorites, setShowFavorites] = useState(false);
+  const [activateStar, setActivateStar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const showFavorites = useAppSelector(
+    (state) => state.charactersReducer.showFavorites
+  );
   const theme = useTheme();
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -33,8 +37,8 @@ export const TopBar = () => {
   };
 
   const handleFavorites = () => {
-    setShowFavorites((prev) => !prev);
-    dispatch(activateFavorites(showFavorites));
+    setActivateStar((prev) => !prev);
+    dispatch(activateFavorites(activateStar)); // need to handle this so the star shows correctly
   };
 
   return (
