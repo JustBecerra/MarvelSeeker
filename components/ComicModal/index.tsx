@@ -14,7 +14,6 @@ import { theme } from "@/public/theme/theme";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addFavoriteComics } from "@/redux/features/comic/comic-slice";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export interface SimpleDialogProps {
