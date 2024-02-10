@@ -13,17 +13,23 @@ import { ComicModal } from "../ComicModal";
 import { useState } from "react";
 import { fetchComicById } from "@/redux/features/comic/comic-slice";
 import { useDispatch } from "react-redux";
+import { CharacterType } from "@/types/CharacterTypes";
+import { ComicType } from "@/types/ComicTypes";
 export const IndividualCard = ({
   name,
   thumbnail,
   id,
   extension,
   handleAddFavorite,
+  favoriteComics,
+  favoriteCharacters,
 }: {
   name: string;
   id: number;
   thumbnail: string;
   extension: string;
+  favoriteCharacters: CharacterType[];
+  favoriteComics: ComicType[];
   handleAddFavorite: (id: number) => void;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,10 +43,6 @@ export const IndividualCard = ({
   const handleClose = () => {
     setOpen(false);
   };
-
-  const favoriteCharacters = useAppSelector(
-    (state) => state.charactersReducer.favoriteCharacters
-  );
 
   const comicsById = useAppSelector((state) => state.comicsReducer.comicsById);
 
@@ -70,6 +72,7 @@ export const IndividualCard = ({
         onClose={handleClose}
         name={name}
         comics={comicsById}
+        favoriteComics={favoriteComics}
       />
       <IconButton
         onClick={handleAddFavorites}

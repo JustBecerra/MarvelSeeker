@@ -5,6 +5,7 @@ import md5 from "md5";
 type initialStateType = {
   comics: ComicType[];
   comicsById: ComicType[];
+  favoriteComics: ComicType[];
   status: string;
   statusById: string;
   error: string;
@@ -13,6 +14,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   comics: [],
   comicsById: [],
+  favoriteComics: [],
   status: "",
   statusById: "",
   error: "",
@@ -55,7 +57,28 @@ const fetchComicById = createAsyncThunk(
 export const comics = createSlice({
   name: "comics",
   initialState,
-  reducers: {},
+  reducers: {
+    addFavoriteComics: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const favoriteChar = state.comics.find((char) => char.id === id);
+
+      if (favoriteChar) {
+        const isAlreadyFavorite = state.favoriteComics.some(
+          (char) => char.id === favoriteChar.id
+        );
+
+        if (isAlreadyFavorite) {
+          // Remove the character from favorites
+          state.favoriteComics = state.favoriteComics.filter(
+            (char) => char.id !== id
+          );
+        } else {
+          // Add the character to favorites
+          state.favoriteComics.push(favoriteChar);
+        }
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchComics.pending, (state) => {
@@ -84,5 +107,5 @@ export const comics = createSlice({
 });
 
 export { fetchComics, fetchComicById };
-export const {} = comics.actions;
+export const { addFavoriteComics } = comics.actions;
 export default comics.reducer;

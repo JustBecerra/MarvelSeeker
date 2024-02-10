@@ -25,6 +25,10 @@ export const CardContainer = () => {
     (state) => state.charactersReducer.favoriteCharacters
   );
 
+  const favoriteComics = useAppSelector(
+    (state) => state.comicsReducer.favoriteComics
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,6 +77,8 @@ export const CardContainer = () => {
               thumbnail={thumbnail.path}
               id={id}
               extension={thumbnail.extension}
+              favoriteCharacters={favoriteCharacters}
+              favoriteComics={favoriteComics}
               handleAddFavorite={handleAddFavorite}
             />
           ))
@@ -83,6 +89,8 @@ export const CardContainer = () => {
               thumbnail={thumbnail.path}
               id={id}
               extension={thumbnail.extension}
+              favoriteCharacters={favoriteCharacters}
+              favoriteComics={favoriteComics}
               handleAddFavorite={handleAddFavorite}
             />
           ))}

@@ -20,5 +20,8 @@ export const theme = createTheme({
       main: "#FFFFFF",
       dark: "#A8A8A8",
     },
+    common: {
+      black: "#000000",
+    },
   },
 });

@@ -64,16 +64,12 @@ export const characters = createSlice({
         );
 
         if (isAlreadyFavorite) {
-          // Remove the character from favorites
           state.favoriteCharacters = state.favoriteCharacters.filter(
             (char) => char.id !== id
           );
         } else {
-          // Add the character to favorites
           state.favoriteCharacters.push(favoriteChar);
         }
-
-        console.log(state.favoriteCharacters);
       }
     },
     activateFavorites: (state, action: PayloadAction<boolean>) => {
