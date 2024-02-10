@@ -14,6 +14,7 @@ import { theme } from "@/public/theme/theme";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addFavoriteComics } from "@/redux/features/comic/comic-slice";
+import Link from "next/link";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -25,6 +26,7 @@ export interface SimpleDialogProps {
 
 export const ComicModal = (props: SimpleDialogProps) => {
   const { onClose, open, name, comics, favoriteComics } = props;
+
   const dispatch = useDispatch<AppDispatch>();
   const handleStar = (id: number) => {
     const isAlreadyFavorite = favoriteComics.some((char) => char.id === id);
@@ -71,81 +73,82 @@ export const ComicModal = (props: SimpleDialogProps) => {
         }}
       >
         {comics.map((comic, key) => (
-          <Box
-            sx={{
-              display: "flex",
-              gap: "1rem",
-            }}
-            key={key}
-          >
-            <Box sx={{ marginLeft: "1.5rem" }}>
-              <Image
-                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                alt=""
-                width={100}
-                height={100}
-              />
-            </Box>
+          <Link key={key} href={`comic/${comic.id}`}>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
+                gap: "1rem",
               }}
             >
+              <Box sx={{ marginLeft: "1.5rem" }}>
+                <Image
+                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+              </Box>
               <Box
                 sx={{
                   display: "flex",
-                  gap: "0.5rem",
-                  alignItems: "center",
+                  flexDirection: "column",
                 }}
               >
-                <Typography sx={{ fontSize: "20px" }}>{name} </Typography>
-                <IconButton
-                  onClick={() => handleAddFavoriteComic(comic.id)}
-                  disableRipple
-                  disableFocusRipple
-                  disableTouchRipple
-                  sx={{ p: 0 }}
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    alignItems: "center",
+                  }}
                 >
-                  {!handleStar(comic.id) ? (
-                    <StarOutlineIcon
-                      sx={{
-                        display: "flex",
-                        justifySelf: "flex-end",
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        zIndex: 999,
-                        fill: theme.palette.primary.dark,
-                      }}
-                    />
-                  ) : (
-                    <StarIcon
-                      sx={{
-                        display: "flex",
-                        justifySelf: "flex-end",
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        zIndex: 999,
-                        fill: theme.palette.primary.dark,
-                      }}
-                    />
-                  )}
-                </IconButton>
+                  <Typography sx={{ fontSize: "20px" }}>{name} </Typography>
+                  <IconButton
+                    onClick={() => handleAddFavoriteComic(comic.id)}
+                    disableRipple
+                    disableFocusRipple
+                    disableTouchRipple
+                    sx={{ p: 0 }}
+                  >
+                    {!handleStar(comic.id) ? (
+                      <StarOutlineIcon
+                        sx={{
+                          display: "flex",
+                          justifySelf: "flex-end",
+                          width: "1.5rem",
+                          height: "1.5rem",
+                          zIndex: 999,
+                          fill: theme.palette.primary.dark,
+                        }}
+                      />
+                    ) : (
+                      <StarIcon
+                        sx={{
+                          display: "flex",
+                          justifySelf: "flex-end",
+                          width: "1.5rem",
+                          height: "1.5rem",
+                          zIndex: 999,
+                          fill: theme.palette.primary.dark,
+                        }}
+                      />
+                    )}
+                  </IconButton>
+                </Box>
+                <Typography
+                  sx={{
+                    width: "80%",
+                    display: "-webkit-box",
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                    WebkitLineClamp: 3,
+                    fontSize: "13px",
+                  }}
+                >
+                  {comic.description || "No Description Available"}
+                </Typography>
               </Box>
-              <Typography
-                sx={{
-                  width: "80%",
-                  display: "-webkit-box",
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  WebkitLineClamp: 3,
-                  fontSize: "13px",
-                }}
-              >
-                {comic.description || "No Description Available"}
-              </Typography>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
     </Dialog>
