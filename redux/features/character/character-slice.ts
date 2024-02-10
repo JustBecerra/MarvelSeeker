@@ -31,7 +31,7 @@ const fetchCharacters = createAsyncThunk("characters", async () => {
   try {
     const apiBaseURL = "http://gateway.marvel.com/v1/public";
     const response = await axios.get(
-      `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+      `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100`
     );
     return response.data.data.results;
   } catch (error) {
@@ -64,16 +64,12 @@ export const characters = createSlice({
         );
 
         if (isAlreadyFavorite) {
-          // Remove the character from favorites
           state.favoriteCharacters = state.favoriteCharacters.filter(
             (char) => char.id !== id
           );
         } else {
-          // Add the character to favorites
           state.favoriteCharacters.push(favoriteChar);
         }
-
-        console.log(state.favoriteCharacters);
       }
     },
     activateFavorites: (state, action: PayloadAction<boolean>) => {

@@ -1,6 +1,6 @@
 import { ComicList, EventList, SeriesList, StoryList } from "./ListTypes";
 
-type Image = {
+export type Image = {
   path: string;
   extension: string;
 };

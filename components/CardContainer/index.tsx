@@ -8,6 +8,7 @@ import {
   fetchCharacters,
 } from "@/redux/features/character/character-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
+import { fetchComics } from "@/redux/features/comic/comic-slice";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,10 +25,26 @@ export const CardContainer = () => {
     (state) => state.charactersReducer.favoriteCharacters
   );
 
+  const favoriteComics = useAppSelector(
+    (state) => state.comicsReducer.favoriteComics
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         await dispatch(fetchCharacters());
+      } catch (error) {
+        console.error("Error fetching characters:", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchComics());
       } catch (error) {
         console.error("Error fetching characters:", error);
       }
@@ -53,23 +70,27 @@ export const CardContainer = () => {
       }}
     >
       {showFavorites === true
-        ? favoriteCharacters.map(({ name, thumbnail, id }, key) => (
+        ? favoriteCharacters.map(({ name, thumbnail, id, comics }, key) => (
             <IndividualCard
               key={key}
               name={name}
               thumbnail={thumbnail.path}
               id={id}
               extension={thumbnail.extension}
+              favoriteCharacters={favoriteCharacters}
+              favoriteComics={favoriteComics}
               handleAddFavorite={handleAddFavorite}
             />
           ))
-        : filteredCharacters.map(({ name, thumbnail, id }, key) => (
+        : filteredCharacters.map(({ name, thumbnail, id, comics }, key) => (
             <IndividualCard
               key={key}
               name={name}
               thumbnail={thumbnail.path}
               id={id}
               extension={thumbnail.extension}
+              favoriteCharacters={favoriteCharacters}
+              favoriteComics={favoriteComics}
               handleAddFavorite={handleAddFavorite}
             />
           ))}

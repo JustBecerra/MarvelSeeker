@@ -1,4 +1,4 @@
-type ComicSummary = {
+export type ComicSummary = {
   resourceURI: string;
   name: string;
 };
@@ -15,7 +15,7 @@ export type ComicList = ListType<ComicSummary>;
 type StorySummary = {
   resourceURI: string;
   name: string;
-  type: string; // Adding 'type' property as mentioned in StorySummary
+  type: string;
 };
 
 export type StoryList = ListType<StorySummary>;
@@ -25,9 +25,25 @@ type EventSummary = {
   name: string;
 };
 
+export type CharacterList = ListType<CharacterSummary>;
+
+type CharacterSummary = {
+  resourceURI: string;
+  name: string;
+  role: string;
+};
+
+export type CreatorList = ListType<CreatorSummary>;
+
+type CreatorSummary = {
+  resourceURI: string;
+  name: string;
+  role: string;
+};
+
 export type EventList = ListType<EventSummary>;
 
-type SeriesSummary = {
+export type SeriesSummary = {
   resourceURI: string;
   name: string;
 };

@@ -8,24 +8,43 @@ import {
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { ComicModal } from "../ComicModal";
 import { useState } from "react";
-import { useAppSelector } from "@/redux/store";
+import { fetchComicById } from "@/redux/features/comic/comic-slice";
+import { useDispatch } from "react-redux";
+import { CharacterType } from "@/types/CharacterTypes";
+import { ComicType } from "@/types/ComicTypes";
 export const IndividualCard = ({
   name,
   thumbnail,
   id,
   extension,
   handleAddFavorite,
+  favoriteComics,
+  favoriteCharacters,
 }: {
   name: string;
   id: number;
   thumbnail: string;
   extension: string;
+  favoriteCharacters: CharacterType[];
+  favoriteComics: ComicType[];
   handleAddFavorite: (id: number) => void;
 }) => {
-  const favoriteCharacters = useAppSelector(
-    (state) => state.charactersReducer.favoriteCharacters
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    dispatch(fetchComicById(id));
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const comicsById = useAppSelector((state) => state.comicsReducer.comicsById);
 
   const handleStar = () => {
     const isAlreadyFavorite = favoriteCharacters.some((char) => char.id === id);
@@ -48,6 +67,13 @@ export const IndividualCard = ({
         opacity: 1,
       }}
     >
+      <ComicModal
+        open={open}
+        onClose={handleClose}
+        name={name}
+        comics={comicsById}
+        favoriteComics={favoriteComics}
+      />
       <IconButton
         onClick={handleAddFavorites}
         disableRipple
@@ -92,7 +118,12 @@ export const IndividualCard = ({
         height="100%"
         image={`${thumbnail}.${extension}`}
         alt="Card Image"
-        style={{ objectFit: "cover", filter: "brightness(0.6)" }}
+        style={{
+          objectFit: "cover",
+          filter: "brightness(0.6)",
+          cursor: "pointer",
+        }}
+        onClick={handleClickOpen}
       />
       <Typography
         sx={{
