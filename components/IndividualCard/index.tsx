@@ -9,16 +9,33 @@ import {
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import { useState } from "react";
+import { useAppSelector } from "@/redux/store";
 export const IndividualCard = ({
   name,
   thumbnail,
+  id,
   extension,
+  handleAddFavorite,
 }: {
   name: string;
+  id: number;
   thumbnail: string;
   extension: string;
+  handleAddFavorite: (id: number) => void;
 }) => {
-  const [addFavorites, setAddFavorites] = useState(false);
+  const favoriteCharacters = useAppSelector(
+    (state) => state.charactersReducer.favoriteCharacters
+  );
+
+  const handleStar = () => {
+    const isAlreadyFavorite = favoriteCharacters.some((char) => char.id === id);
+    if (isAlreadyFavorite) return true;
+    else return false;
+  };
+
+  const handleAddFavorites = () => {
+    handleAddFavorite(id);
+  };
   const theme = useTheme();
   return (
     <Card
@@ -32,13 +49,13 @@ export const IndividualCard = ({
       }}
     >
       <IconButton
-        onClick={() => setAddFavorites((prev) => !prev)}
+        onClick={handleAddFavorites}
         disableRipple
         disableFocusRipple
         disableTouchRipple
         sx={{ p: 0 }}
       >
-        {!addFavorites ? (
+        {!handleStar() ? (
           <StarOutlineIcon
             sx={{
               display: "flex",

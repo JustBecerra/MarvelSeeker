@@ -5,6 +5,8 @@ import md5 from "md5";
 type initialStateType = {
   characters: CharacterType[];
   filteredCharacters: CharacterType[];
+  favoriteCharacters: CharacterType[];
+  showFavorites: boolean;
   searchBar: string;
   status: string;
   error: string;
@@ -13,6 +15,8 @@ type initialStateType = {
 const initialState: initialStateType = {
   characters: [],
   filteredCharacters: [],
+  favoriteCharacters: [],
+  showFavorites: false,
   searchBar: "",
   status: "",
   error: "",
@@ -42,7 +46,6 @@ export const characters = createSlice({
   reducers: {
     filterCharacters: (state, action: PayloadAction<string>) => {
       const searchTerm = action.payload.toLowerCase();
-
       if (searchTerm !== "") {
         state.filteredCharacters = state.characters.filter((char) =>
           char.name.toLowerCase().includes(searchTerm)
@@ -50,6 +53,31 @@ export const characters = createSlice({
       } else {
         state.filteredCharacters = state.characters;
       }
+    },
+    addFavoriteCharacters: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const favoriteChar = state.characters.find((char) => char.id === id);
+
+      if (favoriteChar) {
+        const isAlreadyFavorite = state.favoriteCharacters.some(
+          (char) => char.id === favoriteChar.id
+        );
+
+        if (isAlreadyFavorite) {
+          // Remove the character from favorites
+          state.favoriteCharacters = state.favoriteCharacters.filter(
+            (char) => char.id !== id
+          );
+        } else {
+          // Add the character to favorites
+          state.favoriteCharacters.push(favoriteChar);
+        }
+
+        console.log(state.favoriteCharacters);
+      }
+    },
+    activateFavorites: (state, action: PayloadAction<boolean>) => {
+      state.showFavorites = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -70,5 +98,6 @@ export const characters = createSlice({
 });
 
 export { fetchCharacters };
-export const { filterCharacters } = characters.actions;
+export const { filterCharacters, addFavoriteCharacters, activateFavorites } =
+  characters.actions;
 export default characters.reducer;

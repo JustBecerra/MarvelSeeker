@@ -16,17 +16,29 @@ import Divider from "@mui/material/Divider";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterCharacters } from "@/redux/features/character/character-slice";
+import {
+  activateFavorites,
+  filterCharacters,
+} from "@/redux/features/character/character-slice";
+import { useAppSelector } from "@/redux/store";
 export const TopBar = () => {
   const dispatch = useDispatch();
-  const [showFavorites, setShowFavorites] = useState(false);
+  const [activateStar, setActivateStar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const showFavorites = useAppSelector(
+    (state) => state.charactersReducer.showFavorites
+  );
   const theme = useTheme();
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setSearchTerm(e.target.value);
     dispatch(filterCharacters(e.target.value));
+  };
+
+  const handleFavorites = () => {
+    setActivateStar((prev) => !prev);
+    dispatch(activateFavorites(activateStar)); // need to handle this so the star shows correctly
   };
 
   return (
@@ -86,7 +98,7 @@ export const TopBar = () => {
             </Box>
             <Box sx={{ display: "flex", marginRight: "5%" }}>
               <IconButton
-                onClick={() => setShowFavorites((prev) => !prev)}
+                onClick={handleFavorites}
                 disableRipple
                 disableFocusRipple
                 disableTouchRipple
