@@ -31,7 +31,7 @@ const fetchCharacters = createAsyncThunk("characters", async () => {
   try {
     const apiBaseURL = "http://gateway.marvel.com/v1/public";
     const response = await axios.get(
-      `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+      `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100`
     );
     return response.data.data.results;
   } catch (error) {

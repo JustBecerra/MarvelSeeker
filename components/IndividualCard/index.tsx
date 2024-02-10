@@ -8,21 +8,35 @@ import {
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
-import { useState } from "react";
 import { useAppSelector } from "@/redux/store";
+import { ComicList } from "@/types/ListTypes";
+import { ComicModal } from "../ComicModal";
+import { useState } from "react";
 export const IndividualCard = ({
   name,
   thumbnail,
   id,
+  comics,
   extension,
   handleAddFavorite,
 }: {
   name: string;
   id: number;
+  comics: ComicList;
   thumbnail: string;
   extension: string;
   handleAddFavorite: (id: number) => void;
 }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const favoriteCharacters = useAppSelector(
     (state) => state.charactersReducer.favoriteCharacters
   );
@@ -48,6 +62,7 @@ export const IndividualCard = ({
         opacity: 1,
       }}
     >
+      <ComicModal open={open} onClose={handleClose} name={name} />
       <IconButton
         onClick={handleAddFavorites}
         disableRipple
@@ -92,7 +107,12 @@ export const IndividualCard = ({
         height="100%"
         image={`${thumbnail}.${extension}`}
         alt="Card Image"
-        style={{ objectFit: "cover", filter: "brightness(0.6)" }}
+        style={{
+          objectFit: "cover",
+          filter: "brightness(0.6)",
+          cursor: "pointer",
+        }}
+        onClick={handleClickOpen}
       />
       <Typography
         sx={{

@@ -53,22 +53,24 @@ export const CardContainer = () => {
       }}
     >
       {showFavorites === true
-        ? favoriteCharacters.map(({ name, thumbnail, id }, key) => (
+        ? favoriteCharacters.map(({ name, thumbnail, id, comics }, key) => (
             <IndividualCard
               key={key}
               name={name}
               thumbnail={thumbnail.path}
               id={id}
+              comics={comics}
               extension={thumbnail.extension}
               handleAddFavorite={handleAddFavorite}
             />
           ))
-        : filteredCharacters.map(({ name, thumbnail, id }, key) => (
+        : filteredCharacters.map(({ name, thumbnail, id, comics }, key) => (
             <IndividualCard
               key={key}
               name={name}
               thumbnail={thumbnail.path}
               id={id}
+              comics={comics}
               extension={thumbnail.extension}
               handleAddFavorite={handleAddFavorite}
             />
