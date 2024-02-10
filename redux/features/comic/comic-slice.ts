@@ -68,12 +68,10 @@ export const comics = createSlice({
         );
 
         if (isAlreadyFavorite) {
-          // Remove the character from favorites
           state.favoriteComics = state.favoriteComics.filter(
             (char) => char.id !== id
           );
         } else {
-          // Add the character to favorites
           state.favoriteComics.push(favoriteChar);
         }
       }
