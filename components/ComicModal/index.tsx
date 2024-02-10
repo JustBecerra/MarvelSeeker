@@ -63,7 +63,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "0.75rem",
+          gap: "1rem",
           maxHeight: "30rem",
           minWidth: "36rem",
           overflowY: "auto",
@@ -132,7 +132,16 @@ export const ComicModal = (props: SimpleDialogProps) => {
                   )}
                 </IconButton>
               </Box>
-              <Typography sx={{ width: "80%" }}>
+              <Typography
+                sx={{
+                  width: "80%",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  WebkitLineClamp: 3,
+                  fontSize: "13px",
+                }}
+              >
                 {comic.description || "No Description Available"}
               </Typography>
             </Box>
