@@ -6,6 +6,7 @@ type initialStateType = {
   comics: ComicType[];
   comicsById: ComicType[];
   favoriteComics: ComicType[];
+  comicDetail: ComicType[];
   status: string;
   statusById: string;
   error: string;
@@ -15,6 +16,7 @@ const initialState: initialStateType = {
   comics: [],
   comicsById: [],
   favoriteComics: [],
+  comicDetail: [],
   status: "",
   statusById: "",
   error: "",
@@ -48,7 +50,23 @@ const fetchComicById = createAsyncThunk(
       );
       return response.data.data.results;
     } catch (error) {
-      console.error("Error fetching characters:", error);
+      console.error("Error fetching comics:", error);
+      throw error;
+    }
+  }
+);
+
+const fetchIssueById = createAsyncThunk(
+  "comics/fetchIssueById",
+  async (comicId: number) => {
+    try {
+      const apiBaseURL = "http://gateway.marvel.com/v1/public";
+      const response = await axios.get(
+        `${apiBaseURL}/comics/${comicId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+      );
+      return response.data.data.results;
+    } catch (error) {
+      console.error("Error fetching comic by id:", error);
       throw error;
     }
   }
@@ -91,7 +109,7 @@ export const comics = createSlice({
         state.error = action.error.message as string;
       })
       .addCase(fetchComicById.pending, (state) => {
-        state.status = "loading"; // Use a different action type or state property for fetchComicById.pending
+        state.status = "loading";
       })
       .addCase(fetchComicById.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -100,10 +118,21 @@ export const comics = createSlice({
       .addCase(fetchComicById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message as string;
+      })
+      .addCase(fetchIssueById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchIssueById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.comicDetail = action.payload;
+      })
+      .addCase(fetchIssueById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message as string;
       });
   },
 });
 
-export { fetchComics, fetchComicById };
+export { fetchComics, fetchComicById, fetchIssueById };
 export const { addFavoriteComics } = comics.actions;
 export default comics.reducer;

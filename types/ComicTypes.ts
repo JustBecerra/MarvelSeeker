@@ -35,7 +35,7 @@ export type ComicType = {
   issueNumber: number;
   variantDescription: string;
   description: string;
-  modified: Date;
+  modified: string;
   isbn: string;
   upc: string;
   diamondCode: string;

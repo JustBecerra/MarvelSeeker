@@ -14,6 +14,7 @@ import { theme } from "@/public/theme/theme";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addFavoriteComics } from "@/redux/features/comic/comic-slice";
+import { useRouter } from "next/navigation";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -25,6 +26,7 @@ export interface SimpleDialogProps {
 
 export const ComicModal = (props: SimpleDialogProps) => {
   const { onClose, open, name, comics, favoriteComics } = props;
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const handleStar = (id: number) => {
     const isAlreadyFavorite = favoriteComics.some((char) => char.id === id);
@@ -77,6 +79,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
               gap: "1rem",
             }}
             key={key}
+            onClick={() => router.push(`comic/${comic.id}`)}
           >
             <Box sx={{ marginLeft: "1.5rem" }}>
               <Image
