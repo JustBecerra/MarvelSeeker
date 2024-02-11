@@ -24,7 +24,7 @@ export default function ComicDetail({ params }: { params: { id: number } }) {
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, params.id]);
   return (
     <Box
       component="main"
