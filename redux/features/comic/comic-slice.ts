@@ -29,7 +29,7 @@ const hash = md5(ts + privateKey + publicKey);
 
 const fetchComics = createAsyncThunk("comics", async () => {
   try {
-    const apiBaseURL = "http://gateway.marvel.com/v1/public";
+    const apiBaseURL = "https://gateway.marvel.com/v1/public";
     const response = await axios.get(
       `${apiBaseURL}/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100`
     );
@@ -44,7 +44,7 @@ const fetchComicById = createAsyncThunk(
   "comics/fetchComicById",
   async (comicId: number) => {
     try {
-      const apiBaseURL = "http://gateway.marvel.com/v1/public";
+      const apiBaseURL = "https://gateway.marvel.com/v1/public";
       const response = await axios.get(
         `${apiBaseURL}/characters/${comicId}/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100`
       );
