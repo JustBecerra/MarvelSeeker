@@ -102,7 +102,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                   alignItems: "center",
                 }}
               >
-                <Typography sx={{ fontSize: "20px" }}>{name} </Typography>
+                <Typography sx={{ fontSize: "20px" }}>{name}</Typography>
                 <IconButton
                   onClick={() => handleAddFavoriteComic(comic.id)}
                   disableRipple

@@ -50,7 +50,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
             <Typography
               sx={{
                 fontSize: "1.75rem",
-                color: theme.palette.background.paper,
+                color: theme.palette.primary.light,
                 fontWeight: "600",
               }}
             >
@@ -60,7 +60,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
               <Typography
                 sx={{
                   fontSize: "1.25rem",
-                  color: theme.palette.background.paper,
+                  color: theme.palette.primary.light,
                 }}
               >
                 Published: {formattedDateString}
@@ -68,7 +68,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
               <Typography
                 sx={{
                   fontSize: "1.25rem",
-                  color: theme.palette.background.paper,
+                  color: theme.palette.primary.light,
                 }}
               >
                 Writer:{Writer?.name}
@@ -76,7 +76,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
               <Typography
                 sx={{
                   fontSize: "1.25rem",
-                  color: theme.palette.background.paper,
+                  color: theme.palette.primary.light,
                 }}
               >
                 Penciler: {Penciler?.name}
@@ -84,7 +84,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
               <Typography
                 sx={{
                   fontSize: "1.25rem",
-                  color: theme.palette.background.paper,
+                  color: theme.palette.primary.light,
                 }}
               >
                 Cover Artist: {Cover?.name}
@@ -94,7 +94,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
               sx={{
                 width: "70%",
                 fontSize: "1.125rem",
-                color: theme.palette.background.paper,
+                color: theme.palette.primary.light,
               }}
             >
               {ComicDetail.description}
