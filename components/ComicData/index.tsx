@@ -1,7 +1,7 @@
 import { theme } from "@/public/theme/theme";
 import { useAppSelector } from "@/redux/store";
 import { ComicType } from "@/types/ComicTypes";
-import { Box, Typography } from "@mui/material";
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
@@ -25,6 +25,12 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
   );
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={status === "loading" ? true : false}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       {status === "succeeded" && ComicDetail && (
         <Box
           sx={{

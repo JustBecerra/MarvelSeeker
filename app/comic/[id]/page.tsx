@@ -2,11 +2,12 @@
 import { ComicData } from "@/components/ComicData";
 import { fetchIssueById } from "@/redux/features/comic/comic-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { Box } from "@mui/material";
+import { Backdrop, Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 export default function ComicDetail({ params }: { params: { id: number } }) {
+  const status = useAppSelector((state) => state.comicsReducer.status);
   const ComicDetail = useAppSelector(
     (state) => state.comicsReducer.comicDetail
   );
@@ -36,6 +37,12 @@ export default function ComicDetail({ params }: { params: { id: number } }) {
         padding: 3,
       }}
     >
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={status === "loading" ? true : false}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <ComicData ComicDetail={ComicDetail[0]} />
     </Box>
   );
