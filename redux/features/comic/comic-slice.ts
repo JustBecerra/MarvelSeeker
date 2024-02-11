@@ -60,7 +60,7 @@ const fetchIssueById = createAsyncThunk(
   "comics/fetchIssueById",
   async (comicId: number) => {
     try {
-      const apiBaseURL = "http://gateway.marvel.com/v1/public";
+      const apiBaseURL = "https://gateway.marvel.com/v1/public";
       const response = await axios.get(
         `${apiBaseURL}/comics/${comicId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`
       );

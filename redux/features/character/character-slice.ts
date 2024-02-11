@@ -29,7 +29,7 @@ const hash = md5(ts + privateKey + publicKey);
 
 const fetchCharacters = createAsyncThunk("characters", async () => {
   try {
-    const apiBaseURL = "http://gateway.marvel.com/v1/public";
+    const apiBaseURL = "https://gateway.marvel.com/v1/public";
     const response = await axios.get(
       `${apiBaseURL}/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100`
     );
