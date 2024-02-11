@@ -1,8 +1,8 @@
 "use client";
 import { ComicData } from "@/components/ComicData";
-import { TopBar } from "@/components/TopBar";
 import { fetchIssueById } from "@/redux/features/comic/comic-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
+import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -25,9 +25,18 @@ export default function ComicDetail({ params }: { params: { id: number } }) {
     fetchData();
   }, [dispatch]);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <TopBar />
+    <Box
+      component="main"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+        padding: 3,
+      }}
+    >
       <ComicData ComicDetail={ComicDetail[0]} />
-    </main>
+    </Box>
   );
 }

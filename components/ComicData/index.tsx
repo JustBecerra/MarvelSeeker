@@ -6,7 +6,6 @@ import Image from "next/image";
 import React from "react";
 
 export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
-  console.log(ComicDetail, "asd");
   const status = useAppSelector((state) => state.comicsReducer.status);
   const originalDate = new Date(ComicDetail?.modified);
   const year = originalDate.getFullYear();
@@ -43,7 +42,6 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
           />
           <Box
             sx={{
-              width: "50%",
               display: "flex",
               flexDirection: "column",
               gap: "3rem",
