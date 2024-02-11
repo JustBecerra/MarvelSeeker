@@ -77,6 +77,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
             sx={{
               display: "flex",
               gap: "1rem",
+              cursor: "pointer",
             }}
             key={key}
             onClick={() => router.push(`comic/${comic.id}`)}
