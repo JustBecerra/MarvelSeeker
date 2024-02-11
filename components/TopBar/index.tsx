@@ -67,7 +67,13 @@ export const TopBar = () => {
               }}
             >
               <Link href={"/"}>
-                <Image src={marvelIcon} alt={""} width={72} height={36} />
+                <Image
+                  priority
+                  src={marvelIcon}
+                  alt={""}
+                  width={72}
+                  height={36}
+                />
               </Link>
 
               <Divider
