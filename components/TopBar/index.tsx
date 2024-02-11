@@ -21,6 +21,7 @@ import {
   filterCharacters,
 } from "@/redux/features/character/character-slice";
 import { useAppSelector } from "@/redux/store";
+import Link from "next/link";
 export const TopBar = () => {
   const dispatch = useDispatch();
   const [activateStar, setActivateStar] = useState(false);
@@ -65,7 +66,16 @@ export const TopBar = () => {
                 alignItems: "center",
               }}
             >
-              <Image src={marvelIcon} alt={""} width={72} height={36} />
+              <Link href={"/"}>
+                <Image
+                  priority
+                  src={marvelIcon}
+                  alt={""}
+                  width={72}
+                  height={36}
+                />
+              </Link>
+
               <Divider
                 orientation="vertical"
                 variant="middle"

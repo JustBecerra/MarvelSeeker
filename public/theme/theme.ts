@@ -15,12 +15,12 @@ export const theme = createTheme({
   palette: {
     background: {
       default: "#F7F8FA",
-      paper: "#3E3E3E",
     },
     primary: {
       main: "#FFFFFF",
       contrastText: "#A8A8A8",
       dark: "#505050",
+      light: "#3E3E3E",
     },
     common: {
       black: "#000000",

@@ -1,11 +1,20 @@
 import { CardContainer } from "@/components/CardContainer";
-import { TopBar } from "@/components/TopBar";
+import { Box, Container } from "@mui/material";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <TopBar />
+    <Box
+      component="main"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+        padding: 3,
+      }}
+    >
       <CardContainer />
-    </main>
+    </Box>
   );
 }
