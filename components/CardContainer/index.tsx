@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@mui/material";
+import { Backdrop, Box, CircularProgress } from "@mui/material";
 import { IndividualCard } from "../IndividualCard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,8 @@ import { fetchComics } from "@/redux/features/comic/comic-slice";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const status = useAppSelector((state) => state.charactersReducer.status);
 
   const filteredCharacters = useAppSelector(
     (state) => state.charactersReducer.filteredCharacters
@@ -69,8 +71,14 @@ export const CardContainer = () => {
         justifyContent: "space-evenly",
       }}
     >
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={status === "loading" ? true : false}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       {showFavorites === true
-        ? favoriteCharacters.map(({ name, thumbnail, id, comics }, key) => (
+        ? favoriteCharacters.map(({ name, thumbnail, id }, key) => (
             <IndividualCard
               key={key}
               name={name}
@@ -82,7 +90,7 @@ export const CardContainer = () => {
               handleAddFavorite={handleAddFavorite}
             />
           ))
-        : filteredCharacters.map(({ name, thumbnail, id, comics }, key) => (
+        : filteredCharacters.map(({ name, thumbnail, id }, key) => (
             <IndividualCard
               key={key}
               name={name}
