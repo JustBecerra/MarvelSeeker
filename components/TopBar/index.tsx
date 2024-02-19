@@ -47,6 +47,7 @@ export const TopBar = () => {
   };
 
   const handleToggleMode = () => {
+    console.log({ mode });
     if (mode.mode === "light") {
       dispatch(switchMode("dark"));
     } else dispatch(switchMode("light"));

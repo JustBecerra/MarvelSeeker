@@ -18,18 +18,18 @@ export function MUIThemeProvider({ children }: { children: React.ReactNode }) {
     },
     palette: {
       background: {
-        default: "#F7F8FA",
+        default: mode === "light" ? "#F7F8FA" : "#080706",
       },
       primary: {
-        main: "#FFFFFF",
-        contrastText: "#A8A8A8",
-        dark: "#505050",
-        light: "#3E3E3E",
+        main: mode === "light" ? "#FFFFFF" : "#000000",
+        contrastText: mode === "light" ? "#A8A8A8" : "#575757",
+        dark: mode === "light" ? "#505050" : "#AFAFAF",
+        light: mode === "light" ? "#3E3E3E" : "#C1C1C1",
       },
       common: {
-        black: "#000000",
+        black: mode === "light" ? "#000000" : "#FFFFFF",
       },
-      mode,
+      mode: mode,
     },
   });
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
