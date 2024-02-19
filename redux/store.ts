@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import charactersReducer from "./features/character/character-slice";
 import comicsReducer from "./features/comic/comic-slice";
+import modeReducer from "./features/mode/mode-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
     charactersReducer,
     comicsReducer,
+    modeReducer,
   },
 });
 

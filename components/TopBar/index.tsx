@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import marvelIcon from "../../public/marvel.svg";
 import SearchIcon from "@mui/icons-material/Search";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import Divider from "@mui/material/Divider";
@@ -20,6 +22,7 @@ import {
   activateFavorites,
   filterCharacters,
 } from "@/redux/features/character/character-slice";
+import { switchMode } from "@/redux/features/mode/mode-slice";
 import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 export const TopBar = () => {
@@ -29,6 +32,7 @@ export const TopBar = () => {
   const showFavorites = useAppSelector(
     (state) => state.charactersReducer.showFavorites
   );
+  const mode = useAppSelector((state) => state.modeReducer);
   const theme = useTheme();
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,6 +44,12 @@ export const TopBar = () => {
   const handleFavorites = () => {
     setActivateStar((prev) => !prev);
     dispatch(activateFavorites(activateStar)); // need to handle this so the star shows correctly
+  };
+
+  const handleToggleMode = () => {
+    if (mode.mode === "light") {
+      dispatch(switchMode("dark"));
+    } else dispatch(switchMode("light"));
   };
 
   return (
@@ -96,13 +106,17 @@ export const TopBar = () => {
                   },
                 }}
                 startAdornment={
-                  <InputAdornment position="start">
-                    <SearchIcon
-                      sx={{
-                        fill: theme.palette.primary.dark,
-                      }}
-                    />
-                  </InputAdornment>
+                  searchTerm ? (
+                    <></>
+                  ) : (
+                    <InputAdornment position="start">
+                      <SearchIcon
+                        sx={{
+                          fill: theme.palette.primary.dark,
+                        }}
+                      />
+                    </InputAdornment>
+                  )
                 }
               />
             </Box>
@@ -146,6 +160,14 @@ export const TopBar = () => {
                   height: "2.5rem",
                 }}
               />
+
+              <IconButton sx={{ ml: 1 }} onClick={handleToggleMode}>
+                {theme.palette.mode === "dark" ? (
+                  <Brightness7Icon sx={{ fill: theme.palette.primary.dark }} />
+                ) : (
+                  <Brightness4Icon sx={{ fill: theme.palette.primary.dark }} />
+                )}
+              </IconButton>
             </Box>
           </Box>
         </Toolbar>
