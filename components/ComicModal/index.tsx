@@ -43,9 +43,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
   };
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle sx={{ color: theme.palette.common.black }}>
-        {name}
-      </DialogTitle>
+      <DialogTitle>{name}</DialogTitle>
       <IconButton
         aria-label="close"
         disableRipple
@@ -119,7 +117,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.dark,
+                        fill: theme.palette.primary.main,
                       }}
                     />
                   ) : (
@@ -130,7 +128,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.dark,
+                        fill: theme.palette.primary.main,
                       }}
                     />
                   )}

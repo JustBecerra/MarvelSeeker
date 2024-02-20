@@ -28,6 +28,7 @@ export function MUIThemeProvider({ children }: { children: React.ReactNode }) {
       },
       common: {
         black: mode === "light" ? "#000000" : "#FFFFFF",
+        white: "#FFFFFF",
       },
       mode: mode,
     },
