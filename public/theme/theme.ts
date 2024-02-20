@@ -25,5 +25,6 @@ export const theme = createTheme({
     common: {
       black: "#000000",
     },
+    mode: "dark",
   },
 });

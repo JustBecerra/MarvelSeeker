@@ -9,6 +9,7 @@ import {
 } from "@/redux/features/character/character-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { fetchComics } from "@/redux/features/comic/comic-slice";
+import { theme } from "@/public/theme/theme";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -72,7 +73,10 @@ export const CardContainer = () => {
       }}
     >
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          color: theme.palette.primary.main,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
         open={status === "loading" ? true : false}
       >
         <CircularProgress color="inherit" />

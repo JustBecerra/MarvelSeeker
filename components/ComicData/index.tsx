@@ -1,12 +1,18 @@
-import { theme } from "@/public/theme/theme";
 import { useAppSelector } from "@/redux/store";
 import { ComicType } from "@/types/ComicTypes";
-import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  CircularProgress,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
 export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
   const status = useAppSelector((state) => state.comicsReducer.status);
+  const theme = useTheme();
   const originalDate = new Date(ComicDetail?.modified);
   const year = originalDate.getFullYear();
   const month = String(originalDate.getMonth() + 1).padStart(2, "0");

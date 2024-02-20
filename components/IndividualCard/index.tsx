@@ -93,7 +93,7 @@ export const IndividualCard = ({
               end: 8,
               right: 8,
               zIndex: 999,
-              fill: theme.palette.primary.main,
+              fill: theme.palette.common.white,
             }}
           />
         ) : (
@@ -108,7 +108,7 @@ export const IndividualCard = ({
               end: 8,
               right: 8,
               zIndex: 999,
-              fill: theme.palette.primary.main,
+              fill: theme.palette.common.white,
             }}
           />
         )}
@@ -130,7 +130,7 @@ export const IndividualCard = ({
           position: "absolute",
           bottom: 23,
           left: 23,
-          color: theme.palette.primary.main,
+          color: theme.palette.common.white,
           fontWeight: "bold",
         }}
       >
