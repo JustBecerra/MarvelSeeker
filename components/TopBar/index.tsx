@@ -162,7 +162,13 @@ export const TopBar = () => {
                 }}
               />
 
-              <IconButton sx={{ ml: 1 }} onClick={handleToggleMode}>
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                disableTouchRipple
+                sx={{ ml: 1 }}
+                onClick={handleToggleMode}
+              >
                 {theme.palette.mode === "dark" ? (
                   <Brightness7Icon sx={{ fill: theme.palette.primary.dark }} />
                 ) : (
