@@ -69,6 +69,7 @@ export const CardContainer = () => {
         overflowY: "auto",
         flexWrap: "wrap",
         gap: "2rem",
+        width: "100%",
         justifyContent: "space-evenly",
       }}
     >
