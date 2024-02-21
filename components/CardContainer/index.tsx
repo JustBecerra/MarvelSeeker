@@ -64,7 +64,7 @@ export const CardContainer = () => {
         display: "flex",
         flex: 1,
         padding: 2,
-        flexDirection: "row",
+        flexDirection: { mobile: "column", laptop: "row" },
         overflowY: "auto",
         flexWrap: "wrap",
         gap: "2rem",
