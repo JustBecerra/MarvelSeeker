@@ -10,9 +10,31 @@ const roboto = Roboto({
   display: "swap",
 });
 
+declare module "@mui/material/styles" {
+  interface BreakpointOverrides {
+    xs: false;
+    sm: false;
+    md: false;
+    lg: false;
+    xl: false;
+    mobile: true;
+    tablet: true;
+    laptop: true;
+    desktop: true;
+  }
+}
+
 export function MUIThemeProvider({ children }: { children: React.ReactNode }) {
   const mode = useAppSelector((state) => state.modeReducer.mode);
   const theme = createTheme({
+    breakpoints: {
+      values: {
+        mobile: 0,
+        tablet: 600,
+        laptop: 1200,
+        desktop: 1536,
+      },
+    },
     typography: {
       fontFamily: roboto.style.fontFamily,
     },
