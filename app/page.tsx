@@ -1,10 +1,12 @@
 "use client";
 import { CardContainer } from "@/components/CardContainer";
+import { useAppSelector } from "@/redux/store";
 
 import { Box, useTheme } from "@mui/material";
 
 export default function Home() {
   const theme = useTheme();
+  const mode = useAppSelector((state) => state.modeReducer.mode);
   return (
     <Box
       component="main"
@@ -15,7 +17,8 @@ export default function Home() {
         justifyContent: "space-between",
         minHeight: "100vh",
         padding: 3,
-        backgroundColor: theme.palette.background.default,
+        backgroundColor:
+          mode === "dark" ? theme.palette.background.default : "unset",
       }}
     >
       <CardContainer />

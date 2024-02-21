@@ -47,7 +47,6 @@ export const TopBar = () => {
   };
 
   const handleToggleMode = () => {
-    console.log({ mode });
     if (mode.mode === "light") {
       dispatch(switchMode("dark"));
     } else dispatch(switchMode("light"));
@@ -55,10 +54,7 @@ export const TopBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: theme.palette.primary.main }}
-      >
+      <AppBar position="static">
         <Toolbar>
           <Box
             sx={{
