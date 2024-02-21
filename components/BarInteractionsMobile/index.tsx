@@ -4,6 +4,7 @@ import {
   Input,
   InputAdornment,
   Link,
+  SwipeableDrawer,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -12,8 +13,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import StarIcon from "@mui/icons-material/Star";
+import MenuIcon from "@mui/icons-material/Menu";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import { ChangeEvent } from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import { ChangeEvent, useState } from "react";
 type props = {
   handleToggleMode: () => void;
   handleFavorites: () => void;
@@ -31,6 +34,21 @@ export const BarInteractionsMobile = ({
   searchTerm,
   showFavorites,
 }: props) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setOpenDrawer(open);
+    };
   const theme = useTheme();
   return (
     <Box
@@ -43,52 +61,87 @@ export const BarInteractionsMobile = ({
       }}
     >
       <Box sx={{ display: "flex", marginRight: "5%" }}>
-        <Link href={"/"}>
-          <Image priority src={marvelIcon} alt={""} width={72} height={36} />
-        </Link>
         <IconButton
-          onClick={handleFavorites}
-          disableRipple
-          disableFocusRipple
-          disableTouchRipple
-          sx={{ marginRight: "1rem" }}
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={toggleDrawer(true)}
+          sx={{ mr: 2 }}
         >
-          {!showFavorites ? (
-            <StarOutlineIcon
-              sx={{
-                display: "flex",
-                justifySelf: "flex-end",
-                width: "2.5rem",
-                height: "2.5rem",
-                fill: theme.palette.primary.dark,
-              }}
-            />
-          ) : (
-            <StarIcon
-              sx={{
-                display: "flex",
-                justifySelf: "flex-end",
-                width: "2.5rem",
-                height: "2.5rem",
-                fill: theme.palette.primary.dark,
-              }}
-            />
-          )}
+          <MenuIcon />
         </IconButton>
+        <SwipeableDrawer
+          anchor={"left"}
+          open={openDrawer}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
+          >
+            <Image priority src={marvelIcon} alt={""} width={72} height={36} />
 
-        <IconButton
-          disableRipple
-          disableFocusRipple
-          disableTouchRipple
-          sx={{ ml: 1 }}
-          onClick={handleToggleMode}
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon sx={{ fill: theme.palette.primary.dark }} />
-          ) : (
-            <Brightness4Icon sx={{ fill: theme.palette.primary.dark }} />
-          )}
-        </IconButton>
+            <Link href={"/"}>
+              <HomeIcon
+                sx={{
+                  display: "flex",
+                  justifySelf: "flex-end",
+                  width: "2.5rem",
+                  height: "2.5rem",
+                  fill: theme.palette.primary.dark,
+                }}
+              />
+            </Link>
+            <IconButton
+              onClick={handleFavorites}
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+            >
+              {!showFavorites ? (
+                <StarOutlineIcon
+                  sx={{
+                    display: "flex",
+                    justifySelf: "flex-end",
+                    width: "2.5rem",
+                    height: "2.5rem",
+                    fill: theme.palette.primary.dark,
+                  }}
+                />
+              ) : (
+                <StarIcon
+                  sx={{
+                    display: "flex",
+                    justifySelf: "flex-end",
+                    width: "2.5rem",
+                    height: "2.5rem",
+                    fill: theme.palette.primary.dark,
+                  }}
+                />
+              )}
+            </IconButton>
+
+            <IconButton
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              onClick={handleToggleMode}
+            >
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon sx={{ fill: theme.palette.primary.dark }} />
+              ) : (
+                <Brightness4Icon sx={{ fill: theme.palette.primary.dark }} />
+              )}
+            </IconButton>
+          </Box>
+        </SwipeableDrawer>
       </Box>
       <Input
         placeholder="Buscar"
