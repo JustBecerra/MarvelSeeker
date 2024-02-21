@@ -41,7 +41,7 @@ export const TopBar = () => {
   };
 
   const handleFavorites = () => {
-    dispatch(activateFavorites(!showFavorites)); // need to handle this so the star shows correctly
+    dispatch(activateFavorites(!showFavorites));
   };
 
   const handleToggleMode = () => {

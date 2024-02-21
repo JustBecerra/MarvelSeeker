@@ -1,5 +1,5 @@
 "use client";
-import { Backdrop, Box, CircularProgress } from "@mui/material";
+import { Backdrop, Box, CircularProgress, useTheme } from "@mui/material";
 import { IndividualCard } from "../IndividualCard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -9,11 +9,10 @@ import {
 } from "@/redux/features/character/character-slice";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { fetchComics } from "@/redux/features/comic/comic-slice";
-import { theme } from "@/public/theme/theme";
 
 export const CardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const theme = useTheme();
   const status = useAppSelector((state) => state.charactersReducer.status);
 
   const filteredCharacters = useAppSelector(

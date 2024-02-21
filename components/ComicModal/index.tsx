@@ -5,12 +5,12 @@ import {
   DialogTitle,
   IconButton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { theme } from "@/public/theme/theme";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addFavoriteComics } from "@/redux/features/comic/comic-slice";
@@ -27,6 +27,7 @@ export interface SimpleDialogProps {
 export const ComicModal = (props: SimpleDialogProps) => {
   const { onClose, open, name, comics, favoriteComics } = props;
   const router = useRouter();
+  const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const handleStar = (id: number) => {
     const isAlreadyFavorite = favoriteComics.some((char) => char.id === id);
