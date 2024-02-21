@@ -27,7 +27,6 @@ import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 export const TopBar = () => {
   const dispatch = useDispatch();
-  const [activateStar, setActivateStar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const showFavorites = useAppSelector(
     (state) => state.charactersReducer.showFavorites
@@ -42,8 +41,7 @@ export const TopBar = () => {
   };
 
   const handleFavorites = () => {
-    setActivateStar((prev) => !prev);
-    dispatch(activateFavorites(activateStar)); // need to handle this so the star shows correctly
+    dispatch(activateFavorites(!showFavorites)); // need to handle this so the star shows correctly
   };
 
   const handleToggleMode = () => {
