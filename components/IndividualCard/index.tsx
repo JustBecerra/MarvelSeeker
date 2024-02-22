@@ -61,7 +61,7 @@ export const IndividualCard = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "20%",
+        width: { mobile: "100%", laptop: "20%" },
         height: 380,
         position: "relative",
         opacity: 1,

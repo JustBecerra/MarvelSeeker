@@ -32,7 +32,10 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
   return (
     <>
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          color: theme.palette.common.white,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
         open={status === "loading" ? true : false}
       >
         <CircularProgress color="inherit" />
@@ -42,16 +45,24 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
           sx={{
             display: "flex",
             gap: "2rem",
-            m: "4rem",
+            m: { mobile: "0", laptop: "4rem" },
             justifyContent: "center",
+            flexDirection: { mobile: "column", laptop: "row" },
           }}
         >
-          <Image
-            src={`${ComicDetail.thumbnail.path}.${ComicDetail.thumbnail.extension}`}
-            width={700}
-            height={700}
-            alt={""}
-          />
+          <Box
+            sx={{
+              width: { mobile: "100%", laptop: "80%" },
+              height: { mobile: "30rem", desktop: "40rem" },
+              position: "relative",
+            }}
+          >
+            <Image
+              src={`${ComicDetail.thumbnail.path}.${ComicDetail.thumbnail.extension}`}
+              fill
+              alt={""}
+            />
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -83,7 +94,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                   color: theme.palette.primary.light,
                 }}
               >
-                Writer:{Writer?.name}
+                Writer: {Writer?.name}
               </Typography>
               <Typography
                 sx={{

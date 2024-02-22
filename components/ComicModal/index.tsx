@@ -5,12 +5,12 @@ import {
   DialogTitle,
   IconButton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import StarIcon from "@mui/icons-material/Star";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { theme } from "@/public/theme/theme";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addFavoriteComics } from "@/redux/features/comic/comic-slice";
@@ -27,6 +27,7 @@ export interface SimpleDialogProps {
 export const ComicModal = (props: SimpleDialogProps) => {
   const { onClose, open, name, comics, favoriteComics } = props;
   const router = useRouter();
+  const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const handleStar = (id: number) => {
     const isAlreadyFavorite = favoriteComics.some((char) => char.id === id);
@@ -65,8 +66,10 @@ export const ComicModal = (props: SimpleDialogProps) => {
           flexDirection: "column",
           gap: "1rem",
           maxHeight: "30rem",
-          minWidth: "36rem",
+          minWidth: { mobile: "22rem", laptop: "36rem" },
+          maxWidth: { mobile: "22rem", laptop: "24rem" },
           overflowY: "auto",
+          overflowX: "hidden",
           marginBottom: "2rem",
         }}
       >
@@ -117,7 +120,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.main,
+                        fill: theme.palette.primary.dark,
                       }}
                     />
                   ) : (
@@ -128,7 +131,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.main,
+                        fill: theme.palette.primary.dark,
                       }}
                     />
                   )}
