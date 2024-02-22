@@ -67,9 +67,8 @@ export const BarInteractionsMobile = ({
           color="inherit"
           aria-label="open drawer"
           onClick={toggleDrawer(true)}
-          sx={{ mr: 2 }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ fill: theme.palette.primary.dark }} />
         </IconButton>
         <SwipeableDrawer
           anchor={"left"}

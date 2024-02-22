@@ -66,8 +66,9 @@ export const ComicModal = (props: SimpleDialogProps) => {
           flexDirection: "column",
           gap: "1rem",
           maxHeight: "30rem",
-          minWidth: "36rem",
+          maxWidth: { mobile: "22rem", laptop: "36rem" },
           overflowY: "auto",
+          overflowX: "hidden",
           marginBottom: "2rem",
         }}
       >
@@ -118,7 +119,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.main,
+                        fill: theme.palette.primary.dark,
                       }}
                     />
                   ) : (
@@ -129,7 +130,7 @@ export const ComicModal = (props: SimpleDialogProps) => {
                         width: "1.5rem",
                         height: "1.5rem",
                         zIndex: 999,
-                        fill: theme.palette.primary.main,
+                        fill: theme.palette.primary.dark,
                       }}
                     />
                   )}

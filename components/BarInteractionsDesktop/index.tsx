@@ -35,51 +35,53 @@ export const BarInteractionsDesktop = ({
 }: props) => {
   const theme = useTheme();
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: "1rem",
-        p: "0.5rem",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Link href={"/"}>
-        <Image priority src={marvelIcon} alt={""} width={72} height={36} />
-      </Link>
-      <Divider
-        orientation="vertical"
-        variant="middle"
-        flexItem
+    <>
+      <Box
         sx={{
-          borderRightWidth: 2.5,
-          height: "2.5rem",
+          display: "flex",
+          gap: "1rem",
+          p: "0.5rem",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
+      >
+        <Link href={"/"}>
+          <Image priority src={marvelIcon} alt={""} width={72} height={36} />
+        </Link>
+        <Divider
+          orientation="vertical"
+          variant="middle"
+          flexItem
+          sx={{
+            borderRightWidth: 2.5,
+            height: "2.5rem",
+          }}
+        />
 
-      <Input
-        placeholder="Buscar"
-        onChange={(e) => handleChange(e)}
-        value={searchTerm}
-        sx={{
-          "&.MuiInput-root::before": {
-            borderBottom: "none !important",
-          },
-        }}
-        startAdornment={
-          searchTerm ? (
-            <></>
-          ) : (
-            <InputAdornment position="start">
-              <SearchIcon
-                sx={{
-                  fill: theme.palette.primary.dark,
-                }}
-              />
-            </InputAdornment>
-          )
-        }
-      />
+        <Input
+          placeholder="Buscar"
+          onChange={(e) => handleChange(e)}
+          value={searchTerm}
+          sx={{
+            "&.MuiInput-root::before": {
+              borderBottom: "none !important",
+            },
+          }}
+          startAdornment={
+            searchTerm ? (
+              <></>
+            ) : (
+              <InputAdornment position="start">
+                <SearchIcon
+                  sx={{
+                    fill: theme.palette.primary.dark,
+                  }}
+                />
+              </InputAdornment>
+            )
+          }
+        />
+      </Box>
       <Box sx={{ display: "flex", marginRight: "5%" }}>
         <IconButton
           onClick={handleFavorites}
@@ -135,6 +137,6 @@ export const BarInteractionsDesktop = ({
           )}
         </IconButton>
       </Box>
-    </Box>
+    </>
   );
 };
