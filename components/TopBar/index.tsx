@@ -11,6 +11,8 @@ import { switchMode } from "@/redux/features/mode/mode-slice";
 import { useAppSelector } from "@/redux/store";
 import { BarInteractionsDesktop } from "../BarInteractionsDesktop";
 import { BarInteractionsMobile } from "../BarInteractionsMobile";
+import { usePathname } from "next/navigation";
+import { filterComics } from "@/redux/features/comic/comic-slice";
 export const TopBar = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,12 +22,14 @@ export const TopBar = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("laptop"));
   const mode = useAppSelector((state) => state.modeReducer);
+  const pathname = usePathname();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setSearchTerm(e.target.value);
-    dispatch(filterCharacters(e.target.value));
+    if (pathname.includes("comic")) dispatch(filterComics(e.target.value));
+    else dispatch(filterCharacters(e.target.value));
   };
 
   const handleFavorites = () => {

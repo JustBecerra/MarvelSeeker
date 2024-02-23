@@ -1,10 +1,12 @@
 import {
+  Autocomplete,
   Box,
   IconButton,
   Input,
   InputAdornment,
   Link,
   SwipeableDrawer,
+  TextField,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -17,6 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import HomeIcon from "@mui/icons-material/Home";
 import { ChangeEvent, useState } from "react";
+import { useAppSelector } from "@/redux/store";
 type props = {
   handleToggleMode: () => void;
   handleFavorites: () => void;
@@ -35,7 +38,10 @@ export const BarInteractionsMobile = ({
   showFavorites,
 }: props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const filteredComics = useAppSelector(
+    (state) => state.comicsReducer.filteredComics
+  );
+  const comics = useAppSelector((state) => state.comicsReducer.comics);
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -50,13 +56,16 @@ export const BarInteractionsMobile = ({
       setOpenDrawer(open);
     };
   const theme = useTheme();
+  console.log({ filteredComics });
+  console.log({ comics });
   return (
     <Box
       sx={{
         display: "flex",
         gap: "1rem",
         p: "0.5rem",
-        justifyContent: "center",
+        width: "100%",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
@@ -142,28 +151,39 @@ export const BarInteractionsMobile = ({
           </Box>
         </SwipeableDrawer>
       </Box>
-      <Input
-        placeholder="Buscar"
-        onChange={(e) => handleChange(e)}
-        value={searchTerm}
+      <Autocomplete
+        options={filteredComics}
+        disablePortal
+        getOptionLabel={(option) => option.title}
         sx={{
-          "&.MuiInput-root::before": {
-            borderBottom: "none !important",
-          },
+          width: "60%",
         }}
-        startAdornment={
-          searchTerm ? (
-            <></>
-          ) : (
-            <InputAdornment position="start">
-              <SearchIcon
-                sx={{
-                  fill: theme.palette.primary.dark,
-                }}
-              />
-            </InputAdornment>
-          )
-        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Buscar"
+            onChange={(e) => handleChange(e)}
+            value={searchTerm}
+            sx={{
+              "&.MuiInput-root::before": {
+                borderBottom: "none !important",
+              },
+            }}
+            // startAdornment={
+            //   searchTerm ? (
+            //     <></>
+            //   ) : (
+            //     <InputAdornment position="start">
+            //       <SearchIcon
+            //         sx={{
+            //           fill: theme.palette.primary.dark,
+            //         }}
+            //       />
+            //     </InputAdornment>
+            //   )
+            // }
+          />
+        )}
       />
     </Box>
   );

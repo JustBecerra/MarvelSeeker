@@ -6,6 +6,7 @@ type initialStateType = {
   comics: ComicType[];
   comicsById: ComicType[];
   favoriteComics: ComicType[];
+  filteredComics: ComicType[];
   comicDetail: ComicType[];
   status: string;
   statusById: string;
@@ -16,6 +17,7 @@ const initialState: initialStateType = {
   comics: [],
   comicsById: [],
   favoriteComics: [],
+  filteredComics: [],
   comicDetail: [],
   status: "",
   statusById: "",
@@ -76,6 +78,16 @@ export const comics = createSlice({
   name: "comics",
   initialState,
   reducers: {
+    filterComics: (state, action: PayloadAction<string>) => {
+      const searchTerm = action.payload.toLowerCase();
+      if (searchTerm !== "") {
+        state.filteredComics = state.comics.filter((char) =>
+          char.title.toLowerCase().includes(searchTerm)
+        );
+      } else {
+        state.filteredComics = [];
+      }
+    },
     addFavoriteComics: (state, action: PayloadAction<number>) => {
       const id = action.payload;
       const favoriteChar = state.comics.find((char) => char.id === id);
@@ -134,5 +146,5 @@ export const comics = createSlice({
 });
 
 export { fetchComics, fetchComicById, fetchIssueById };
-export const { addFavoriteComics } = comics.actions;
+export const { addFavoriteComics, filterComics } = comics.actions;
 export default comics.reducer;
