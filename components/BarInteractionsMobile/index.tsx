@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  AutocompleteChangeReason,
   Box,
   IconButton,
   Input,
@@ -18,8 +19,10 @@ import StarIcon from "@mui/icons-material/Star";
 import MenuIcon from "@mui/icons-material/Menu";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import HomeIcon from "@mui/icons-material/Home";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useAppSelector } from "@/redux/store";
+import { ComicType } from "@/types/ComicTypes";
+import { useRouter } from "next/navigation";
 type props = {
   handleToggleMode: () => void;
   handleFavorites: () => void;
@@ -30,6 +33,12 @@ type props = {
   showFavorites: boolean;
 };
 
+type autocompleteProps = {
+  event: SyntheticEvent<Element, Event>;
+  value: ComicType | null;
+  reason: AutocompleteChangeReason;
+};
+
 export const BarInteractionsMobile = ({
   handleToggleMode,
   handleFavorites,
@@ -38,10 +47,10 @@ export const BarInteractionsMobile = ({
   showFavorites,
 }: props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const router = useRouter();
   const filteredComics = useAppSelector(
     (state) => state.comicsReducer.filteredComics
   );
-  const comics = useAppSelector((state) => state.comicsReducer.comics);
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -56,8 +65,9 @@ export const BarInteractionsMobile = ({
       setOpenDrawer(open);
     };
   const theme = useTheme();
-  console.log({ filteredComics });
-  console.log({ comics });
+  const handleComicSearch = ({ value, reason }: autocompleteProps) => {
+    if (reason === "selectOption") router.replace(`comic/${value?.id}`); // need to fix this
+  };
   return (
     <Box
       sx={{
@@ -155,6 +165,9 @@ export const BarInteractionsMobile = ({
         options={filteredComics}
         disablePortal
         getOptionLabel={(option) => option.title}
+        onChange={(event, value, reason) =>
+          handleComicSearch({ event, value, reason })
+        }
         sx={{
           width: "60%",
         }}
