@@ -7,7 +7,6 @@ import {
   Link,
   SwipeableDrawer,
   TextField,
-  Typography,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -179,7 +178,7 @@ export const BarInteractionsMobile = ({
             value={searchTerm}
             variant="standard"
             sx={{
-              "&.MuiInput-root::before": {
+              "& .MuiInput-root::before": {
                 borderBottom: "none !important",
               },
             }}
