@@ -1,10 +1,12 @@
 import {
+  Autocomplete,
+  AutocompleteChangeReason,
   Box,
   IconButton,
-  Input,
   InputAdornment,
   Link,
   SwipeableDrawer,
+  TextField,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -16,7 +18,10 @@ import StarIcon from "@mui/icons-material/Star";
 import MenuIcon from "@mui/icons-material/Menu";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import HomeIcon from "@mui/icons-material/Home";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useAppSelector } from "@/redux/store";
+import { ComicType } from "@/types/ComicTypes";
+import { useRouter } from "next/navigation";
 type props = {
   handleToggleMode: () => void;
   handleFavorites: () => void;
@@ -27,6 +32,12 @@ type props = {
   showFavorites: boolean;
 };
 
+type autocompleteProps = {
+  event: SyntheticEvent<Element, Event>;
+  value: ComicType | null;
+  reason: AutocompleteChangeReason;
+};
+
 export const BarInteractionsMobile = ({
   handleToggleMode,
   handleFavorites,
@@ -35,7 +46,10 @@ export const BarInteractionsMobile = ({
   showFavorites,
 }: props) => {
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const router = useRouter();
+  const filteredComics = useAppSelector(
+    (state) => state.comicsReducer.filteredComics
+  );
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -50,13 +64,17 @@ export const BarInteractionsMobile = ({
       setOpenDrawer(open);
     };
   const theme = useTheme();
+  const handleComicSearch = ({ value, reason }: autocompleteProps) => {
+    if (reason === "selectOption") router.push(`/comic/${value?.id}`);
+  };
   return (
     <Box
       sx={{
         display: "flex",
         gap: "1rem",
         p: "0.5rem",
-        justifyContent: "center",
+        width: "100%",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
@@ -142,28 +160,41 @@ export const BarInteractionsMobile = ({
           </Box>
         </SwipeableDrawer>
       </Box>
-      <Input
-        placeholder="Buscar"
-        onChange={(e) => handleChange(e)}
-        value={searchTerm}
-        sx={{
-          "&.MuiInput-root::before": {
-            borderBottom: "none !important",
-          },
-        }}
-        startAdornment={
-          searchTerm ? (
-            <></>
-          ) : (
-            <InputAdornment position="start">
-              <SearchIcon
-                sx={{
-                  fill: theme.palette.primary.dark,
-                }}
-              />
-            </InputAdornment>
-          )
+      <Autocomplete
+        options={filteredComics}
+        disablePortal
+        getOptionLabel={(option) => option.title}
+        onChange={(event, value, reason) =>
+          handleComicSearch({ event, value, reason })
         }
+        sx={{
+          width: "60%",
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Buscar"
+            onChange={(e) => handleChange(e)}
+            value={searchTerm}
+            variant="standard"
+            sx={{
+              "& .MuiInput-root::before": {
+                borderBottom: "none !important",
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon
+                    sx={{
+                      fill: theme.palette.primary.dark,
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
       />
     </Box>
   );
