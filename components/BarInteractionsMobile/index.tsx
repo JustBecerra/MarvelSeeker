@@ -3,11 +3,11 @@ import {
   AutocompleteChangeReason,
   Box,
   IconButton,
-  Input,
   InputAdornment,
   Link,
   SwipeableDrawer,
   TextField,
+  Typography,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
@@ -66,7 +66,7 @@ export const BarInteractionsMobile = ({
     };
   const theme = useTheme();
   const handleComicSearch = ({ value, reason }: autocompleteProps) => {
-    if (reason === "selectOption") router.replace(`comic/${value?.id}`); // need to fix this
+    if (reason === "selectOption") router.push(`/comic/${value?.id}`);
   };
   return (
     <Box
@@ -177,24 +177,23 @@ export const BarInteractionsMobile = ({
             placeholder="Buscar"
             onChange={(e) => handleChange(e)}
             value={searchTerm}
+            variant="standard"
             sx={{
               "&.MuiInput-root::before": {
                 borderBottom: "none !important",
               },
             }}
-            // startAdornment={
-            //   searchTerm ? (
-            //     <></>
-            //   ) : (
-            //     <InputAdornment position="start">
-            //       <SearchIcon
-            //         sx={{
-            //           fill: theme.palette.primary.dark,
-            //         }}
-            //       />
-            //     </InputAdornment>
-            //   )
-            // }
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon
+                    sx={{
+                      fill: theme.palette.primary.dark,
+                    }}
+                  />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
       />
