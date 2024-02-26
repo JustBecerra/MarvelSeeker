@@ -109,29 +109,6 @@ export const BarInteractionsDesktop = ({
             />
           )}
         />
-        {/* <Input
-          placeholder="Buscar"
-          onChange={(e) => handleChange(e)}
-          value={searchTerm}
-          sx={{
-            "&.MuiInput-root::before": {
-              borderBottom: "none !important",
-            },
-          }}
-          startAdornment={
-            searchTerm ? (
-              <></>
-            ) : (
-              <InputAdornment position="start">
-                <SearchIcon
-                  sx={{
-                    fill: theme.palette.primary.dark,
-                  }}
-                />
-              </InputAdornment>
-            )
-          }
-        /> */}
       </Box>
       <Box sx={{ display: "flex", marginRight: "5%" }}>
         <IconButton
