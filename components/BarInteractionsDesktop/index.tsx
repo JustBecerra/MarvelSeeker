@@ -84,7 +84,7 @@ export const BarInteractionsDesktop = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              placeholder="Buscar"
+              placeholder="Search"
               onChange={(e) => handleChange(e)}
               value={searchTerm}
               variant="standard"
@@ -92,17 +92,7 @@ export const BarInteractionsDesktop = ({
                 "& .MuiInput-root::before": {
                   borderBottom: "none !important",
                 },
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon
-                      sx={{
-                        fill: theme.palette.primary.dark,
-                      }}
-                    />
-                  </InputAdornment>
-                ),
+                width: "16rem",
               }}
             />
           )}

@@ -167,13 +167,10 @@ export const BarInteractionsMobile = ({
         onChange={(event, value, reason) =>
           handleComicSearch({ event, value, reason })
         }
-        sx={{
-          width: "60%",
-        }}
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Buscar"
+            placeholder="Search"
             onChange={(e) => handleChange(e)}
             value={searchTerm}
             variant="standard"
@@ -181,17 +178,7 @@ export const BarInteractionsMobile = ({
               "& .MuiInput-root::before": {
                 borderBottom: "none !important",
               },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon
-                    sx={{
-                      fill: theme.palette.primary.dark,
-                    }}
-                  />
-                </InputAdornment>
-              ),
+              width: "12rem",
             }}
           />
         )}
