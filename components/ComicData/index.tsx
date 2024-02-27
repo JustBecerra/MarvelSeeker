@@ -54,7 +54,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
           <Box
             sx={{
               width: { mobile: "16rem", laptop: "50rem" },
-              height: { mobile: "20rem", desktop: "40rem" },
+              height: { mobile: "20rem", laptop: "30rem", desktop: "40rem" },
               position: "relative",
               borderRadius: "0.75rem",
               display: "flex",
