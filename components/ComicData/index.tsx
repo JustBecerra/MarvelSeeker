@@ -53,10 +53,9 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
         >
           <Box
             sx={{
-              width: { mobile: "30rem", laptop: "50rem" },
-              height: { mobile: "30rem", desktop: "40rem" },
+              width: { mobile: "16rem", laptop: "50rem" },
+              height: { mobile: "20rem", desktop: "40rem" },
               position: "relative",
-              border: `1px solid ${theme.palette.primary.contrastText}`,
               borderRadius: "0.75rem",
               display: "flex",
               justifyContent: "center",
@@ -65,9 +64,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
           >
             <Image
               src={`${ComicDetail.thumbnail.path}.${ComicDetail.thumbnail.extension}`}
-              width={600}
-              height={550}
-              objectFit="cover"
+              fill
               alt={""}
             />
           </Box>
@@ -83,7 +80,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                 fontSize: "1.75rem",
                 color: theme.palette.primary.light,
                 fontWeight: "600",
-                width: "32rem",
+                width: { mobile: "unset", laptop: "32rem" },
               }}
             >
               {ComicDetail.title}

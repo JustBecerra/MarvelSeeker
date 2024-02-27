@@ -3,7 +3,6 @@ import {
   AutocompleteChangeReason,
   Box,
   IconButton,
-  InputAdornment,
   Link,
   SwipeableDrawer,
   TextField,
@@ -11,7 +10,6 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import marvelIcon from "../../public/marvel.svg";
-import SearchIcon from "@mui/icons-material/Search";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import StarIcon from "@mui/icons-material/Star";
@@ -104,8 +102,12 @@ export const BarInteractionsMobile = ({
             }}
           >
             <Image priority src={marvelIcon} alt={""} width={72} height={36} />
-
-            <Link href={"/"}>
+            <IconButton
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              onClick={() => router.push(`/`)}
+            >
               <HomeIcon
                 sx={{
                   display: "flex",
@@ -115,7 +117,8 @@ export const BarInteractionsMobile = ({
                   fill: theme.palette.primary.dark,
                 }}
               />
-            </Link>
+            </IconButton>
+
             <IconButton
               onClick={handleFavorites}
               disableRipple
