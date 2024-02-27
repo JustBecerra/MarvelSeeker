@@ -45,7 +45,7 @@ export const IndividualCard = ({
   };
 
   const comicsById = useAppSelector((state) => state.comicsReducer.comicsById);
-
+  const comicStatus = useAppSelector((state) => state.comicsReducer.status);
   const handleStar = () => {
     const isAlreadyFavorite = favoriteCharacters.some((char) => char.id === id);
     if (isAlreadyFavorite) return true;
@@ -73,6 +73,7 @@ export const IndividualCard = ({
         name={name}
         comics={comicsById}
         favoriteComics={favoriteComics}
+        comicStatus={comicStatus}
       />
       <IconButton
         onClick={handleAddFavorites}

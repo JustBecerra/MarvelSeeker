@@ -44,17 +44,22 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
         <Box
           sx={{
             display: "flex",
-            gap: "2rem",
             m: { mobile: "0", laptop: "4rem" },
-            justifyContent: "center",
+            width: "90%",
+            gap: "2rem",
+            justifyContent: "space-evenly",
             flexDirection: { mobile: "column", laptop: "row" },
           }}
         >
           <Box
             sx={{
-              width: { mobile: "100%", laptop: "80%" },
-              height: { mobile: "30rem", desktop: "40rem" },
+              width: { mobile: "16rem", laptop: "50rem" },
+              height: { mobile: "20rem", laptop: "30rem", desktop: "40rem" },
               position: "relative",
+              borderRadius: "0.75rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
@@ -75,6 +80,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                 fontSize: "1.75rem",
                 color: theme.palette.primary.light,
                 fontWeight: "600",
+                width: { mobile: "unset", laptop: "32rem" },
               }}
             >
               {ComicDetail.title}
@@ -86,7 +92,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                   color: theme.palette.primary.light,
                 }}
               >
-                Published: {formattedDateString}
+                Published: {formattedDateString || "Not Available"}
               </Typography>
               <Typography
                 sx={{
@@ -94,7 +100,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                   color: theme.palette.primary.light,
                 }}
               >
-                Writer: {Writer?.name}
+                Writer: {Writer?.name || "Not Available"}
               </Typography>
               <Typography
                 sx={{
@@ -102,7 +108,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                   color: theme.palette.primary.light,
                 }}
               >
-                Penciler: {Penciler?.name}
+                Penciler: {Penciler?.name || "Not Available"}
               </Typography>
               <Typography
                 sx={{
@@ -110,7 +116,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                   color: theme.palette.primary.light,
                 }}
               >
-                Cover Artist: {Cover?.name}
+                Cover Artist: {Cover?.name || "Not Available"}
               </Typography>
             </Box>
             <Typography
@@ -120,7 +126,7 @@ export const ComicData = ({ ComicDetail }: { ComicDetail: ComicType }) => {
                 color: theme.palette.primary.light,
               }}
             >
-              {ComicDetail.description}
+              {ComicDetail.description || "Not Available"}
             </Typography>
           </Box>
         </Box>

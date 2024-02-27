@@ -4,14 +4,11 @@ import {
   Box,
   Divider,
   IconButton,
-  InputAdornment,
-  Link,
   TextField,
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
 import marvelIcon from "../../public/marvel.svg";
-import SearchIcon from "@mui/icons-material/Search";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import StarIcon from "@mui/icons-material/Star";
@@ -62,9 +59,14 @@ export const BarInteractionsDesktop = ({
           alignItems: "center",
         }}
       >
-        <Link href={"/"}>
+        <IconButton
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+          onClick={() => router.push(`/`)}
+        >
           <Image priority src={marvelIcon} alt={""} width={72} height={36} />
-        </Link>
+        </IconButton>
         <Divider
           orientation="vertical"
           variant="middle"
