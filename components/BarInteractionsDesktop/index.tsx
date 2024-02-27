@@ -62,9 +62,14 @@ export const BarInteractionsDesktop = ({
           alignItems: "center",
         }}
       >
-        <Link href={"/"}>
+        <IconButton
+          disableRipple
+          disableFocusRipple
+          disableTouchRipple
+          onClick={() => router.push(`/`)}
+        >
           <Image priority src={marvelIcon} alt={""} width={72} height={36} />
-        </Link>
+        </IconButton>
         <Divider
           orientation="vertical"
           variant="middle"
