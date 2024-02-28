@@ -66,6 +66,7 @@ export const CardContainer = () => {
   const handleAddFavorite = (id: number) => {
     dispatch(addFavoriteCharacters(id));
   };
+
   return (
     <Box
       sx={{
@@ -115,7 +116,7 @@ export const CardContainer = () => {
               handleAddFavorite={handleAddFavorite}
             />
           ))}
-      {filteredCharacters.length === 0 && (
+      {filteredCharacters.length === 0 && status !== "loading" && (
         <Box
           sx={{
             mt: { mobile: "15%", laptop: "unset" },
