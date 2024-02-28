@@ -7,7 +7,6 @@ type initialStateType = {
   filteredCharacters: CharacterType[];
   favoriteCharacters: CharacterType[];
   showFavorites: boolean;
-  searchBar: string;
   status: string;
   error: string;
 };
@@ -17,7 +16,6 @@ const initialState: initialStateType = {
   filteredCharacters: [],
   favoriteCharacters: [],
   showFavorites: false,
-  searchBar: "",
   status: "",
   error: "",
 } as initialStateType;
