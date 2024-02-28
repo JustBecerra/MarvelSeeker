@@ -66,7 +66,7 @@ export const CardContainer = () => {
   const handleAddFavorite = (id: number) => {
     dispatch(addFavoriteCharacters(id));
   };
-  console.log({ status });
+
   return (
     <Box
       sx={{
