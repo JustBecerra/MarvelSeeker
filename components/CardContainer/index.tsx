@@ -116,7 +116,7 @@ export const CardContainer = () => {
               handleAddFavorite={handleAddFavorite}
             />
           ))}
-      {filteredCharacters.length === 0 && status !== "loading" && (
+      {filteredCharacters.length === 0 && status === "succeeded" && (
         <Box
           sx={{
             mt: { mobile: "15%", laptop: "unset" },
