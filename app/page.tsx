@@ -15,7 +15,7 @@ export default function Home() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
-        minHeight: "100vh",
+        minHeight: "87.2vh",
         padding: 3,
         backgroundColor:
           mode === "dark" ? theme.palette.background.default : "unset",

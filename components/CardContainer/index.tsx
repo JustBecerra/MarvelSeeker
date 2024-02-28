@@ -1,5 +1,11 @@
 "use client";
-import { Backdrop, Box, CircularProgress, useTheme } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  CircularProgress,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { IndividualCard } from "../IndividualCard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -7,6 +13,8 @@ import {
   addFavoriteCharacters,
   fetchCharacters,
 } from "@/redux/features/character/character-slice";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { fetchComics } from "@/redux/features/comic/comic-slice";
 
@@ -70,6 +78,7 @@ export const CardContainer = () => {
         gap: "2rem",
         width: "100%",
         justifyContent: "space-evenly",
+        alignItems: "center",
       }}
     >
       <Backdrop
@@ -106,6 +115,64 @@ export const CardContainer = () => {
               handleAddFavorite={handleAddFavorite}
             />
           ))}
+      {filteredCharacters.length === 0 && (
+        <Box
+          sx={{
+            mt: { mobile: "15%", laptop: "unset" },
+            border: `1px solid ${theme.palette.primary.contrastText}`,
+            borderRadius: "0.75rem",
+            height: "8rem",
+            width: { mobile: "17rem", tablet: "22rem" },
+
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          <Typography
+            sx={{
+              color: theme.palette.primary.light,
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+          >
+            We don&apos;t seem to have that character!
+          </Typography>
+          <SentimentDissatisfiedIcon
+            sx={{ fill: theme.palette.primary.dark }}
+          />
+        </Box>
+      )}
+      {favoriteCharacters.length === 0 && showFavorites === true && (
+        <Box
+          sx={{
+            mt: { mobile: "15%", laptop: "unset" },
+            border: `1px solid ${theme.palette.primary.contrastText}`,
+            borderRadius: "0.75rem",
+            height: "8rem",
+            width: { mobile: "17rem", tablet: "22rem" },
+
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          <Typography
+            sx={{
+              color: theme.palette.primary.light,
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+          >
+            You have to flag a character as favorite first!
+          </Typography>
+          <TipsAndUpdatesIcon sx={{ fill: theme.palette.primary.dark }} />
+        </Box>
+      )}
     </Box>
   );
 };
